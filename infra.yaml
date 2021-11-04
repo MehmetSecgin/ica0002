@@ -1,9 +1,9 @@
 ---
   - name: Web Server
-    hosts: web_servers
-    become: yes
+    hosts: all
     roles:
-      - users
+      # - users
       - agama
       - uwsgi
       - nginx
+    become: yes
