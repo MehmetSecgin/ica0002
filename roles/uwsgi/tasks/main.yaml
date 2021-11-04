@@ -3,7 +3,6 @@
     name: 
       - uwsgi
       - uwsgi-plugin-python3
-    update_cache: yes
 
 - name: Start uWSGI
   service: 

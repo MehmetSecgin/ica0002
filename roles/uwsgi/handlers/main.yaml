@@ -1,5 +1,5 @@
 - name: Restart Uwsgi
   become: yes
   service: 
-    name: nginx
+    name: uwsgi
     state: restarted
