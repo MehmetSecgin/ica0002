@@ -19,8 +19,10 @@ dns_forwarders:
 dns_record:
     - name: vm1
       ip: 192.168.42.183
+      public_url: http://193.40.156.86:18380
     - name: vm2
       ip: 192.168.42.137
+      public_url: http://193.40.156.86:13780
 
 subnets: 
   - 192.168.42.0/24
@@ -29,3 +31,4 @@ subnets:
 
 domain: snackdrivein.io
 startup_name: snackdrivein 
+

@@ -1,0 +1,23 @@
+---
+- name: Install Prometheus
+  apt:
+    name:
+      - prometheus
+
+- name: Create a backup for prometheus.yml
+  copy:
+    src: /etc/prometheus/prometheus.yml
+    dest: /etc/prometheus/prometheus.yml.backup
+    remote_src: yes
+
+- name: Configure Prometheus Job
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+  notify: Restart Prometheus
+
+- name: Change /etc/default/prometheus
+  template: 
+    src: prometheus.j2
+    dest: /etc/default/prometheus
+  notify: Restart Prometheus

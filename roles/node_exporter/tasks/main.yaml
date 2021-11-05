@@ -1,0 +1,4 @@
+- name: Download Node Exporter
+  apt:
+    name: prometheus-node-exporter
+    state: latest

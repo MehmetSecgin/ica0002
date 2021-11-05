@@ -6,3 +6,6 @@ mesecg_vm1
 
 [db_servers]
 mesecg_vm2
+
+[prometheus]
+mesecg_vm1
