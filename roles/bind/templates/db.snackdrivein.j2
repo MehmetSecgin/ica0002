@@ -1,0 +1,12 @@
+$TTL	604800
+{{ domain }}.	IN	SOA	vm1.{{ domain }}. mesecg.{{ domain }}. (
+			      2		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+{{domain}}. IN NS vm1
+{%for d in dns_record%}
+{{d.name}} IN A {{d.ip}}
+{%endfor%}

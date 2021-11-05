@@ -18,4 +18,11 @@
     hosts: db_servers
     roles:
       - mysql
+      - bind
+    become: yes
+
+  - name: DNS Resolve
+    hosts: all
+    roles:
+      - dns_resolve
     become: yes

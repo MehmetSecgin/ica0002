@@ -1,4 +1,4 @@
-mysql_host: 192.168.42.51
+mysql_host: 192.168.42.137
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -8,3 +8,24 @@ mysql_password: !vault |
           34336335626531363539346661343664323863343037326335346537646436383331323366613037
           6162626339623833300a306637343766633632363630353331656264383766656136383065313262
           3334
+
+dns_forwarders:
+    - 1.1.1.1
+    - 8.8.8.8
+    - 9.9.9.9
+    - 9.9.9.10 
+
+    
+dns_record:
+    - name: vm1
+      ip: 192.168.42.183
+    - name: vm2
+      ip: 192.168.42.137
+
+subnets: 
+  - 192.168.42.0/24
+  - 127.0.0.0/8
+
+
+domain: snackdrivein.io
+startup_name: snackdrivein 
