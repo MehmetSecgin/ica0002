@@ -1,0 +1,2 @@
+rate(node_cpu_seconds_total[30s]) * 100
+node_memory_MemAvailable_bytes
