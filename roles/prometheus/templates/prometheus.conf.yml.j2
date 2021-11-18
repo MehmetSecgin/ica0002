@@ -1,0 +1,43 @@
+
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+
+      
+# Lab 7 jobs
+
+scrape_configs:
+  - job_name: prometheus
+    scrape_interval: 5s 
+    scrape_timeout: 5s 
+    metrics_path: /prometheus/metrics
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: linux
+    static_configs:
+      - targets: 
+          {%for vm in dns_record%}
+            - {{vm.name}}:9100
+          {%endfor%}
+
+  - job_name: bind9
+    static_configs:
+      - targets: 
+        - vm2:9119
+
+  - job_name: mysqld
+    static_configs:
+      - targets: 
+        - vm2:9104
+
+  - job_name: nginx
+    static_configs:
+      - targets: 
+        - vm1:9113
+        - vm2:9113
+
+  - job_name: grafana
+    static_configs:
+      - targets: 
+        - vm2:3000

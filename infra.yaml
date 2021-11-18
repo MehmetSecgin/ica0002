@@ -31,6 +31,7 @@
     hosts: all
     roles:
       - node_exporter
+      - nginx_exporter
     become: yes
 
   - name: Prometheus
@@ -44,3 +45,16 @@
     roles:
       - reverse_proxy
     become: yes
+
+  - name: Configure Exporters 
+    hosts: grafana
+    become: yes
+    roles:
+      - bind_exporter
+      - mysql_exporter
+
+  - name: Install Grafana
+    hosts: grafana
+    become: yes
+    roles:
+      - grafana

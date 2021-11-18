@@ -1,0 +1,5 @@
+---
+- name: Restart Bind Exporter
+  service:
+    name: prometheus-bind-exporter
+    state: restarted

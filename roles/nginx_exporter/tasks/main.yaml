@@ -1,0 +1,6 @@
+---
+- name: Download Nginx exporter
+  apt:
+    name: prometheus-nginx-exporter
+    state: latest
+  notify: Restart Nginx exporter

@@ -1,0 +1,11 @@
+---
+- name: Install MySQL exporter
+  apt:
+    name: prometheus-mysqld-exporter
+    state: latest
+
+- name: Configure MySQL exporter
+  template:
+    src: my.cnf.j2
+    dest: /var/lib/prometheus/.my.cnf
+  notify: Restart MySQL exporter
