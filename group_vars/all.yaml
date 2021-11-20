@@ -1,4 +1,4 @@
-mysql_host: 192.168.42.101
+mysql_host: 192.168.42.107
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -40,11 +40,11 @@ subnets:
 
 dns_record:
   - name: vm1
-    ip: 192.168.42.72
-    public_url: http://193.40.156.86:7280
+    ip: 192.168.42.62
+    public_url: http://193.40.156.86:6280
   - name: vm2
-    ip: 192.168.42.101
-    public_url: http://193.40.156.86:10180
+    ip: 192.168.42.107
+    public_url: http://193.40.156.86:10780
 
 domain: snackdrivein.io
 startup_name: snackdrivein 

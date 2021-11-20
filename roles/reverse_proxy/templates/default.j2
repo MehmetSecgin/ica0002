@@ -34,17 +34,21 @@ server {
 	}
 	
 
+{% if inventory_hostname in groups['influxdb'] %}
+	location /influxdb-metrics {
+	    proxy_pass http://localhost:9424/metrics;
+	}
+{% endif %}
 
-	{% if inventory_hostname in groups['prometheus'] %}
-    location /prometheus {
-        proxy_pass http://localhost:9090;
-    }
-    {% endif %}
-
-	{% if inventory_hostname in groups['grafana'] %}
-    location /grafana {
-        proxy_pass http://localhost:3000;
-    }
-    {% endif %}
+{% if inventory_hostname in groups['prometheus'] %}
+	location /prometheus {
+	    proxy_pass http://localhost:9090;
+	}
+{% endif %}
+{% if inventory_hostname in groups['grafana'] %}
+	location /grafana {
+	    proxy_pass http://localhost:3000;
+	}
+{% endif %}
 
 }

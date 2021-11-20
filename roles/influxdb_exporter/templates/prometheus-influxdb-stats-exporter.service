@@ -1,0 +1,12 @@
+[Unit]
+Description= pinger service for influxdb exporter
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=1
+User=prometheus
+ExecStart= /usr/local/bin/influx_stats_exporter_linux_amd64
+
+[Install]
+WantedBy=multi-user.target

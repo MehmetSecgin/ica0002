@@ -1,0 +1,35 @@
+---
+- apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- apt_repository:
+    repo: deb https://repos.influxdata.com/ubuntu focal stable
+
+- apt:
+    name:
+      - influxdb
+      - telegraf
+
+- name: Start influxdb
+  service:
+    name: influxdb
+    state: started
+    enabled: yes 
+
+- name: Configure Telegraf
+  template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+
+- name: Restart Telegraf
+  service:
+    name: telegraf
+    state: restarted
+    enabled: yes
+
+- name: Configure InfluxDb
+  template:
+    src: influxdb.conf
+    dest: /etc/influxdb/influxdb.conf
+  notify: Restart Influxdb
+    

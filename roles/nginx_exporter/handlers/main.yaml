@@ -1,5 +1,0 @@
-- name: Restart Nginx exporter
-  service:
-    name: prometheus-nginx-exporter
-    state: restarted
-    enabled: yes

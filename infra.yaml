@@ -1,60 +1,84 @@
----
+# ---
 
-  - name : Init
-    hosts: all
-    roles:
-      - init
+#   - name : Init
+#     become: yes
+#     hosts: all
+#     roles:
+#       - init
+
+#   - name: Web Server
+#     hosts: web_servers
+#     become: yes
+#     roles:
+#       - agama
+#       - uwsgi
+#       - nginx
+
+#   - name: Database Server
+#     hosts: db_servers
+#     become: yes
+#     roles:
+#       - mysql
+#       - bind
+
+#   - name: DNS Resolve
+#     hosts: all
+#     become: yes
+#     roles:
+#       - dns_resolve
+
+  # - name: Node and Nginx Exporters
+  #   hosts: all
+  #   become: yes
+  #   roles:
+  #     - node_exporter
+  #     - nginx_exporter
+
+  # - name: Prometheus
+  #   become: yes 
+  #   hosts: prometheus
+  #   roles:
+  #     - prometheus
+
+  # - name: Configure Reverse Proxy
+  #   become: yes
+  #   hosts: all
+  #   roles:
+  #     - reverse_proxy
+
+  # - name: Bind and Mysql Exporters 
+  #   hosts: grafana
+  #   become: yes
+  #   roles:
+  #     - bind_exporter
+  #     - mysql_exporter
+
+  # - name: Install Grafana
+  #   hosts: grafana
+  #   become: yes
+  #   roles:
+  #     - grafana
+
+  - name: Influxdb
+    hosts: influxdb
     become: yes
+    roles: 
+      - influxdb
 
-  - name: Web Server
-    hosts: web_servers
-    roles:
-      - agama
-      - uwsgi
-      - nginx
-    become: yes
+  # - name: pinger
+  #   hosts: influxdb
+  #   become: yes
+  #   roles:
+  #     - pinger
 
-  - name: Database Server
-    hosts: db_servers
-    roles:
-      - mysql
-      - bind
-    become: yes
+  # - name: Rsyslog
+  #   hosts: all
+  #   become: yes
+  #   roles:
+  #     - rsyslog
 
-  - name: DNS Resolve
-    hosts: all
-    roles:
-      - dns_resolve
-    become: yes
-
-  - name: Node Export
-    hosts: all
-    roles:
-      - node_exporter
-      - nginx_exporter
-    become: yes
-
-  - name: Prometheus
-    hosts: prometheus
-    roles:
-      - prometheus
-    become: yes 
-
-  - name: Configure Reverse Proxy
-    hosts: all
-    roles:
-      - reverse_proxy
-    become: yes
-
-  - name: Configure Exporters 
-    hosts: grafana
+  - name: Influxdb Exporter
+    hosts: influxdb
     become: yes
     roles:
-      - bind_exporter
-      - mysql_exporter
-
-  - name: Install Grafana
-    hosts: grafana
-    become: yes
-    roles:
-      - grafana
+      - influxdb_exporter
