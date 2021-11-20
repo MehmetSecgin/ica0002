@@ -9,6 +9,26 @@
     state: started
     enabled: yes
 
+- name: Copy Data Source
+  template:
+    src: datasource.yaml.j2
+    dest: /etc/grafana/provisioning/datasources/datasource.yaml
+
+- name: Copy Dashboard
+  template:
+    src: main_dashboard.yaml.j2
+    dest: /etc/grafana/provisioning/dashboards/main_dashboard.yaml
+
+- name: Password.sh file
+  template:
+    src: grafanapass.sh.j2
+    dest: /etc/grafana/grafanapass.sh.j2
+
+- name: Copy Json File
+  template:
+    src: main.json
+    dest: /etc/grafana/provisioning/dashboards/main.json
+    
 - name: Reconfigure Grafana
   template:
     src: grafana.ini.j2

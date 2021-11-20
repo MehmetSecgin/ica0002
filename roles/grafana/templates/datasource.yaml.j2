@@ -1,0 +1,16 @@
+# config file version
+apiVersion: 1
+
+# list of datasources to insert/update depending
+# what's available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+  - name: Prometheus
+    # <string, required> datasource type. Required
+    type: prometheus
+    # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
+    access: Server
+    # <string> url
+    url: {{ dns_record[0].public_url }}/prometheus
+    # <bool> allow users to edit datasources from the UI.
+    editable: true

@@ -2,6 +2,11 @@
   user:
     name: pinger
 
+- name: Install Fping
+  apt:
+    name: fping
+    state: latest
+
 - name: Create install directory
   file:
     path: /etc/pinger
