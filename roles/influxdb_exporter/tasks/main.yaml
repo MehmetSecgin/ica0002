@@ -8,3 +8,8 @@
   template:
     src: prometheus-influxdb-stats-exporter.service
     dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
+
+- name: Start the service
+  service:
+    name: prometheus-influxdb-stats-exporter
+    state: started
