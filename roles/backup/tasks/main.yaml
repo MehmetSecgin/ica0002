@@ -6,3 +6,20 @@
     generate_ssh_key: yes
     ssh_key_bits: 4096
     ssh_key_file: .ssh/id_rsa
+
+- name: Create restore directory
+  file:
+    state: directory
+    path: /home/backup/restore
+    owner: backup
+    mode: 0750 
+
+- name: Install Duplicity
+  apt:
+    name: duplicity
+    state: latest
+
+- name: Add known_hosts to automize ssh
+  template:
+    src: known_hosts.j2
+    dest: /home/backup/.ssh/known_hosts   

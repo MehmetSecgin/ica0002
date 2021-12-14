@@ -1,4 +1,5 @@
-mysql_host: 192.168.42.141
+# MYSQL CONFIG
+mysql_host: 192.168.42.164
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -9,6 +10,7 @@ mysql_password: !vault |
           6162626339623833300a306637343766633632363630353331656264383766656136383065313262
           3334
 
+# MYSQL EXPORTER CONFIG
 mysql_exporter_user: exporter
 mysql_exporter_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -18,6 +20,7 @@ mysql_exporter_password: !vault |
           3665303838353230650a323662646532613132393935313037323032633263653132626161396466
           3937
 
+# GRAFANA CONFIG 
 grafana_admin_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           66336638356635643864363030303434626131663866373566633038356130643766383138656635
@@ -25,14 +28,24 @@ grafana_admin_password: !vault |
           38393932373832393839663037333239643834633964636465656633333634633162396135303131
           3431366238663162390a356663343063363863326634353432633931353532373330643664613533
           6463
+# BACKUP CONFIG
+backup_mysql_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62333631653931623364646632343266306161633036613265646136313233636262666663323031
+          3361316330316437366637343833336662393530323164610a663164613361383634383665633463
+          62363731393861323331643939373934646433373731326231626134393833363065383230326263
+          3031656464646466370a646339633862313534363939653863366366653639626334656436363465
+          6330
 
+backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
+backup_mysql_user: backup
+
+# DNS CONFIG
 dns_forwarders:
     - 1.1.1.1
     - 8.8.8.8
     - 9.9.9.9
     - 9.9.9.10 
-
-    
 
 subnets: 
   - 192.168.42.0/24
@@ -40,17 +53,18 @@ subnets:
 
 dns_record:
   - name: vm1
-    ip: 192.168.42.114
-    public_url: http://193.40.156.86:11480
+    ip: 192.168.42.101
+    public_url: http://193.40.156.86:10180
   - name: vm2
-    ip: 192.168.42.141
-    public_url: http://193.40.156.86:14180
+    ip: 192.168.42.164
+    public_url: http://193.40.156.86:16480
   - name: backup
     ip: 192.168.42.156
 
 domain: snackdrivein.io
 startup_name: snackdrivein 
 
+# PROMETHEUS CONFIG
 prometheus_port: 9090
 prometheus_exporters:
   
@@ -65,4 +79,5 @@ prometheus_exporters:
 
   nginx:
     port: 9113
+
 

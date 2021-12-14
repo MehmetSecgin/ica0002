@@ -1,0 +1,11 @@
+- name: Create influxdb directory for backup
+  file:
+    state: directory
+    path: /home/backup/influxdb
+    owner: backup
+    mode: 0750 
+
+- name: Schedule InfluxDb Dumps
+  template:
+    src: influxdb-backup.j2
+    dest: /etc/cron.d/influxdb-backup

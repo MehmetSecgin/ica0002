@@ -14,12 +14,13 @@
 #       - uwsgi
 #       - nginx
 
-#   - name: Database Server
-#     hosts: db_servers
-#     become: yes
-#     roles:
-#       - mysql
-#       - bind
+  - name: Database Server
+    hosts: db_servers
+    become: yes
+    roles:
+      - mysql
+      - mysql_backup
+      - bind
 
 #   - name: DNS Resolve
 #     hosts: all
@@ -27,13 +28,13 @@
 #     roles:
 #       - dns_resolve
 
-# - name: Node and Nginx Exporters
-#   hosts: all
-#   become: yes
-#   roles:
-#     - node_exporter
-#     - nginx_exporter
-
+#   - name: Node and Nginx Exporters
+#     hosts: all
+#     become: yes
+#     roles:
+#       - node_exporter
+#       - nginx_exporter
+  
 #   - name: Prometheus
 #     become: yes 
 #     hosts: prometheus
@@ -45,38 +46,40 @@
 #     hosts: all
 #     roles:
 #       - reverse_proxy
-
-# - name: Bind and Mysql Exporters 
-#   hosts: grafana
-#   become: yes
-#   roles:
-#     - bind_exporter
-#     - mysql_exporter
-
+  
+#   - name: Bind and Mysql Exporters 
+#     hosts: grafana
+#     become: yes
+#     roles:
+#       - bind_exporter
+#       - mysql_exporter
+  
 #   - name: Install Grafana
 #     hosts: grafana
 #     become: yes
 #     roles:
 #       - grafana
-
-# - name: Influxdb
-#   hosts: influxdb
-#   become: yes
-#   roles: 
-#     - influxdb
-# - name: pinger
-#   hosts: influxdb
-#   become: yes
-#   roles:
-#     - pinger
-# - name: Rsyslog
-#   hosts: all
-#   become: yes
-#   roles:
-#     - rsyslog
-
-# - name: Influxdb Exporter
-#   hosts: influxdb
-#   become: yes
-#   roles:
-#     - influxdb_exporter
+  
+  # - name: Influxdb
+  #   hosts: influxdb
+  #   become: yes
+  #   roles: 
+  #     - influxdb
+  #     - influxdb_backup
+      
+#   - name: pinger
+#     hosts: influxdb
+#     become: yes
+#     roles:
+#       - pinger
+#   - name: Rsyslog
+#     hosts: all
+#     become: yes
+#     roles:
+#       - rsyslog
+  
+#   - name: Influxdb Exporter
+#     hosts: influxdb
+#     become: yes
+#     roles:
+#       - influxdb_exporter

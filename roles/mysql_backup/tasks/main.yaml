@@ -1,0 +1,26 @@
+- name: Create mysql directory for backup
+  file:
+    state: directory
+    path: /home/backup/mysql
+    owner: backup
+    mode: 0750 
+
+- name: Add MySQL user for backup
+  community.mysql.mysql_user:
+    name: "{{backup_mysql_user}}"
+    password: "{{ backup_mysql_password }}"
+    host: "%"
+    priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Change .my.cnf file
+  template:
+    src: .my.cnf.j2
+    dest: /home/backup/.my.cnf
+    owner: backup
+    mode: 0400
+
+- name: Schedule MySQL Dumps
+  template:
+    src: mysql-backup.j2
+    dest: /etc/cron.d/mysql-backup
