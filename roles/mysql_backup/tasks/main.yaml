@@ -20,7 +20,14 @@
     owner: backup
     mode: 0400
 
-- name: Schedule MySQL Dumps
+- name: Add Cron when mysql server is changed
   template:
     src: mysql-backup.j2
     dest: /etc/cron.d/mysql-backup
+  when: "hostvars[inventory_hostname]['ansible_default_ipv4']['address'] != mysql_host"
+
+- name: Delete Cron from Source Server
+  file:
+    path: /etc/cron.d/mysql-backup
+    state: absent
+  when: "hostvars[inventory_hostname]['ansible_default_ipv4']['address'] == mysql_host"

@@ -1,5 +1,5 @@
 # MYSQL CONFIG
-mysql_host: 192.168.42.164
+mysql_host: 192.168.42.199
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -20,6 +20,18 @@ mysql_exporter_password: !vault |
           3665303838353230650a323662646532613132393935313037323032633263653132626161396466
           3937
 
+# MYSQL REPLICATION CONFIG
+mysql_replication_user: replication
+mysql_replication_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66333365633032663336356138636636616366356133333635316664316432636537316537633331
+          3836376666383564656230643362313162313136373631650a383866386235376538363533363838
+          30623831333132616430326466663031303361656362353964393662623064646532323063363666
+          6566323731303962610a336166656639636235383831393666323566323930383531633766373939
+          3434
+
+node_id: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'].split('.')[-1] }}"
+
 # GRAFANA CONFIG 
 grafana_admin_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -29,6 +41,7 @@ grafana_admin_password: !vault |
           3431366238663162390a356663343063363863326634353432633931353532373330643664613533
           6463
 # BACKUP CONFIG
+backup_mysql_user: backup
 backup_mysql_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           62333631653931623364646632343266306161633036613265646136313233636262666663323031
@@ -38,7 +51,6 @@ backup_mysql_password: !vault |
           6330
 
 backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
-backup_mysql_user: backup
 
 # DNS CONFIG
 dns_forwarders:
@@ -53,11 +65,11 @@ subnets:
 
 dns_record:
   - name: vm1
-    ip: 192.168.42.101
-    public_url: http://193.40.156.86:10180
+    ip: 192.168.42.51
+    public_url: http://193.40.156.86:5180
   - name: vm2
-    ip: 192.168.42.164
-    public_url: http://193.40.156.86:16480
+    ip: 192.168.42.199
+    public_url: http://193.40.156.86:19980
   - name: backup
     ip: 192.168.42.156
 
@@ -79,5 +91,4 @@ prometheus_exporters:
 
   nginx:
     port: 9113
-
 

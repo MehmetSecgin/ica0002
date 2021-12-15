@@ -10,12 +10,6 @@
     dest: /etc/default/prometheus
   notify: Restart Prometheus
   
-- name: Create a backup for prometheus.yml
-  copy:
-    src: /etc/prometheus/prometheus.yml
-    dest: /etc/prometheus/prometheus.yml.backup
-    remote_src: yes
-
 - name: Configure Prometheus Job
   template:
     src: prometheus.conf.yml.j2

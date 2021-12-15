@@ -1,9 +1,3 @@
-- name: Create a backup for resolv conf on remote
-  copy:
-    src: /etc/resolv.conf
-    dest: /etc/resolv.conf.backup
-    remote_src: yes
-
 - name : Change resolv file 
   template:
     src: resolv.conf.j2

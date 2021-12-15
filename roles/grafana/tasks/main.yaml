@@ -1,36 +1,45 @@
-- name: Install Grafana 
-  apt: 
+- name: Install grafana
+  apt:
     deb: https://dl.grafana.com/oss/release/grafana_8.2.3_amd64.deb
     force_apt_get: yes
 
-- name: Start Grafana
+- name: Start grafana
   service:
     name: grafana-server
     state: started
     enabled: yes
-
-- name: Copy Data Source
-  template:
-    src: datasource.yaml.j2
+- template:
+    src: datasourse.yaml.j2
     dest: /etc/grafana/provisioning/datasources/datasource.yaml
+  notify: Restart Grafana
 
-- name: Copy Dashboard
-  template:
-    src: main_dashboard.yaml.j2
-    dest: /etc/grafana/provisioning/dashboards/main_dashboard.yaml
-
-- name: Password.sh file
-  template:
-    src: grafanapass.sh.j2
-    dest: /etc/grafana/grafanapass.sh.j2
-
-- name: Copy Json File
-  template:
+- name: Copy json
+  copy:
     src: main.json
     dest: /etc/grafana/provisioning/dashboards/main.json
-    
-- name: Reconfigure Grafana
-  template:
+
+- name: Copy json
+  copy:
+    src: mysql.json
+    dest: /etc/grafana/provisioning/dashboards/mysql.json
+
+- template:
+    src: dashboard.yaml.j2
+    dest: /etc/grafana/provisioning/dashboards/main_dashboard.yaml
+  notify: Restart Grafana
+
+- template:
+    src: grafanapass.sh.j2
+    dest: /etc/grafana/grafanapass.sh
+    mode: '0777'
+
+- name: Execute the script to reset password
+  ansible.builtin.shell: /etc/grafana/grafanapass.sh
+  # no_log: true
+  become: yes
+
+- template:
     src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
   notify: Restart Grafana
+

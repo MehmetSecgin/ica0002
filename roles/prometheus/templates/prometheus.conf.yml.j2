@@ -29,6 +29,7 @@ scrape_configs:
   - job_name: mysqld
     static_configs:
       - targets: 
+        - vm1:9104
         - vm2:9104
 
   - job_name: nginx

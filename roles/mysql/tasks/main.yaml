@@ -6,10 +6,9 @@
       - python3-pymysql
     state: latest
   
-
 - name : Copy the config file
-  copy:
-    src: files/override.cnf
+  template:
+    src: override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify: Restart Mysql
 
@@ -25,3 +24,35 @@
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: MySQL replication user
+  community.mysql.mysql_user:
+    name: "{{ mysql_replication_user }}"
+    password: "{{ mysql_replication_password }}"
+    host: "%"
+    priv: '*.*:REPLICATION SLAVE'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify: Restart Mysql
+
+
+- name: Turn on dynamic config change
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: 'ON'
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: "hostvars[inventory_hostname]['ansible_default_ipv4']['address'] != mysql_host"
+  notify:
+  - Reset MySQL source
+  - Reset MySQL replica
+
+- name: Keep static as it is
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: 'OFF'
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: "hostvars[inventory_hostname]['ansible_default_ipv4']['address'] == mysql_host"
+  notify:
+  - Reset MySQL source
+  - Reset MySQL replica
