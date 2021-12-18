@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1639561766469,
+  "iteration": 1639567869348,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -150,47 +150,24 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "yellow",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
               }
             ]
           }
@@ -205,21 +182,27 @@
       },
       "id": 4,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "text": {},
+        "textMode": "auto"
       },
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
           "expr": "mysql_slave_status_slave_io_running",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "io_running on {{instance}}",
           "refId": "A"
         },
         {
@@ -227,14 +210,15 @@
           "expr": "mysql_slave_status_slave_sql_running",
           "hide": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "sql_running on {{instance}}",
           "refId": "B"
         }
       ],
       "title": "MySQL replication",
-      "type": "timeseries"
+      "type": "stat"
     }
   ],
+  "refresh": "",
   "schemaVersion": 31,
   "style": "dark",
   "tags": [],
@@ -277,5 +261,5 @@
   "timezone": "",
   "title": "MySql Server",
   "uid": "QqDJV-2nz",
-  "version": 2
+  "version": 11
 }

@@ -1,4 +1,7 @@
-- name: Restart Grafana
-  service:
-    name: grafana-server
-    state: restarted
+- name: Restart grafana container
+  community.docker.docker_container:
+    container_default_behavior: no_defaults
+    name: grafana
+    image: grafana/grafana
+    state: started
+    restart: yes

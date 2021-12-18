@@ -1,5 +1,5 @@
-mesecg_vm1 ansible_host=193.40.156.86 ansible_port=5122 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-mesecg_vm2 ansible_host=193.40.156.86 ansible_port=19922 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+mesecg_vm1 ansible_host=193.40.156.86 ansible_port=13122 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+mesecg_vm2 ansible_host=193.40.156.86 ansible_port=4822 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
 
 [web_servers]
 mesecg_vm1
@@ -12,7 +12,10 @@ mesecg_vm2
 mesecg_vm1
 
 [grafana]
-mesecg_vm2
+mesecg_vm1
 
 [influxdb]
+mesecg_vm1
+
+[docker]
 mesecg_vm1

@@ -41,7 +41,7 @@ scrape_configs:
   - job_name: grafana
     static_configs:
       - targets: 
-        - vm2:3000
+        - vm1:{{grafana_port}}
 
   - job_name: influxdb_exporter
     static_configs:
