@@ -36,7 +36,10 @@
   template:
     src: pinger.conf
     dest: /etc/pinger/pinger.conf
+  notify:
+    - Reload Daemon
+    - Restart Pinger
 
-- name: Force systemd to reread configs 
-  shell: systemctl daemon-reload
-  notify: Restart pinger
+# - name: Force systemd to reread configs 
+#   shell: systemctl daemon-reload
+#   notify: Restart pinger

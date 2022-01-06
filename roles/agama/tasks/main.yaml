@@ -12,10 +12,10 @@
 
 - name: Build the image
   community.docker.docker_image:
-    name: agama
-    source: build
     build:
       path: /opt/agama
+    name: agama
+    source: build
 
 - name: Start agama container
   community.docker.docker_container:

@@ -3,3 +3,9 @@
     name: pinger.service
     state: restarted
   become: yes
+
+- name: Reload Daemon
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: pinger.service

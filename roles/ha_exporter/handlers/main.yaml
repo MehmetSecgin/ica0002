@@ -1,0 +1,12 @@
+- name: Restart keepalived
+  service: 
+    name: keepalived
+    state: restarted
+
+- name: Restart haproxy exporter
+  service:
+    name: prometheus-haproxy-exporter
+    state: restarted
+
+- name: Reload systemd
+  shell: systemctl daemon-reload

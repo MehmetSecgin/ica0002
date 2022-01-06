@@ -47,3 +47,17 @@ scrape_configs:
     static_configs:
       - targets: 
         - vm1:9424
+
+  - job_name: haproxy_exporter
+    static_configs:
+      - targets:
+          {% for vm in groups['haproxy'] %}
+            - {{ hostvars[vm]['inventory_hostname'] }}:{{ prometheus_exporters['haproxy']['port'] }}
+          {% endfor %}
+
+  - job_name: keepalived_exporter
+    static_configs:
+      - targets:
+          {% for vm in groups['haproxy'] %}
+            - {{ hostvars[vm]['inventory_hostname'] }}:{{ prometheus_exporters['keepalived']['port'] }}
+          {% endfor %}

@@ -1,5 +1,5 @@
 # MYSQL CONFIG
-mysql_host: 192.168.42.48
+mysql_host: 192.168.42.76
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -67,19 +67,22 @@ subnets:
 
 dns_record:
   - name: vm1
-    ip: 192.168.42.131
-    public_url: http://193.40.156.86:13180
+    ip: 192.168.42.101
+    public_url: http://193.40.156.67:10180
+    virtual_address: 192.168.100.101
   - name: vm2
-    ip: 192.168.42.48
-    public_url: http://193.40.156.86:4880
+    ip: 192.168.42.76
+    public_url: http://193.40.156.67:7680	
+    virtual_address: 192.168.100.76
   - name: backup
-    ip: 192.168.42.156
+    ip: 192.168.42.132
 
 domain: snackdrivein.io
 startup_name: snackdrivein 
 
 # PROMETHEUS CONFIG
 prometheus_port: 9090
+
 prometheus_exporters:
   
   node:
@@ -93,9 +96,19 @@ prometheus_exporters:
 
   nginx:
     port: 9113
+    
+  haproxy:
+    port: 9101
+  
+  keepalived:
+    port: 9165
 
 
 # DOCKER PORTS
 
 grafana_port: 3001
 agama_port: 8001
+
+# Haproxy and Keepalived configs
+
+haproxy_port: 88

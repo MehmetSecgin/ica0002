@@ -9,9 +9,3 @@
   copy:
     src: index.html
     dest: /var/www/html/index.html
-
-- name : Copy the config file
-  template:
-    src: default.j2
-    dest: /etc/nginx/sites-enabled/default
-  notify: Restart Nginx

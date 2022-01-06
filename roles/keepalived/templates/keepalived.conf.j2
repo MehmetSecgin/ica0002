@@ -1,0 +1,34 @@
+vrrp_script check_haproxy {                 
+    script "/home/ubuntu/keepalive_script.sh" 
+    weight 20                              
+    interval 1               
+}
+static_routes {
+    	192.168.100.0/24 dev ens3
+}
+
+vrrp_instance agama {             
+    interface ens3
+    virtual_router_id 1
+    {% if inventory_hostname == 'mesecg_vm1' %}
+    priority 100
+    {% else %}
+    priority 99
+    {% endif %}
+    advert_int 1                            
+    virtual_ipaddress {                     
+        {{ dns_record[0].virtual_address}}/24                   
+    }
+    unicast_peer {                          
+        {% for vm in groups['haproxy']%}
+    		{% if inventory_hostname != vm %}
+        {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+    		{% endif %}
+    	{% endfor%}
+
+    }
+    track_script {
+        check_haproxy
+    }
+
+}

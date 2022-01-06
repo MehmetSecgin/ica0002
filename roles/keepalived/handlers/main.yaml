@@ -1,0 +1,7 @@
+- name: Restart keepalived
+  service:
+    name: keepalived
+    state: restarted
+
+- name: Reload systemd
+  shell: systemctl daemon-reload

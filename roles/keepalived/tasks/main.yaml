@@ -1,0 +1,38 @@
+---
+- name: Install Keepalived
+  apt:
+    name: keepalived
+
+- name: Configure Keepalived 
+  template:
+    dest: /etc/keepalived/keepalived.conf
+    src: keepalived.conf.j2
+  notify: Restart keepalived
+
+- name: Place the script
+  template:
+    dest: /home/ubuntu/keepalive_script.sh
+    src: keepalive_script.sh
+    mode: '0777'
+
+- name: Download and unarchive keepalived exporter
+  unarchive:
+    src: https://github.com/cafebazaar/keepalived-exporter/releases/download/v1.2.0/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+
+- name: Create keepalived exporter service
+  template:
+    src: keepalived-prometheus-exporter.service
+    dest: /etc/systemd/system/keepalived-prometheus-exporter.service
+  notify: 
+    - Reload systemd
+    - Restart keepalived
+
+- name: Start Haproxy and Keepalived Exporters
+  service: 
+    name: "{{ item }}"
+    state: started    
+  loop: 
+    - keepalived
+    - keepalived-prometheus-exporter

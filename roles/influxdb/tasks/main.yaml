@@ -20,12 +20,7 @@
   template:
     src: telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf
-
-- name: Restart Telegraf
-  service:
-    name: telegraf
-    state: restarted
-    enabled: yes
+  notify: Restart Telegraf
 
 - name: Configure InfluxDb
   template:

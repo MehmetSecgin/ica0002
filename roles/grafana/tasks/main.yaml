@@ -37,6 +37,7 @@
     - main.json
     - mysql.json
     - syslog.json
+    - haproxy.json
   notify: Restart grafana container
 
 - name: Put the datasource file

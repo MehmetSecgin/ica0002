@@ -21,16 +21,20 @@ server {
 	location /node-metrics {
 		proxy_pass http://localhost:{{ prometheus_exporters['node']['port'] }}/metrics;
 	}
-
 	location /bind-metrics {
 		proxy_pass http://localhost:{{ prometheus_exporters['bind']['port'] }}/metrics;
 	}
-
 	location /mysql-metrics {
 		proxy_pass http://localhost:{{ prometheus_exporters['mysql']['port'] }}/metrics;
 	}
 	location /nginx-metrics {
 		proxy_pass http://localhost:{{ prometheus_exporters['nginx']['port'] }}/metrics;
+	}
+	location /haproxy-metrics {
+		proxy_pass http://localhost:{{ prometheus_exporters['haproxy']['port'] }}/metrics;
+	}
+	location /keepalived-metrics {
+		proxy_pass http://localhost:{{ prometheus_exporters['keepalived']['port'] }}/metrics;
 	}
 	
 

@@ -15,6 +15,7 @@
 
   - name: Web Server
     hosts: web_servers
+    tags: webserver
     become: yes
     roles:
       - agama
@@ -78,7 +79,6 @@
     roles: 
       - influxdb
 
-      
   - name: pinger
     hosts: influxdb
     become: yes
@@ -109,4 +109,13 @@
     become: yes
     roles:
       - influxdb_backup
+
+  - name: HAProxy Keepalived and exporters
+    tags: haproxy
+    hosts: haproxy
+    become: yes
+    roles:
+      - haproxy
+      - keepalived
+    
 
