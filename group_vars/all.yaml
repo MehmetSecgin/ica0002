@@ -1,5 +1,5 @@
 # MYSQL CONFIG
-mysql_host: 192.168.42.76
+mysql_host: 192.168.42.53
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -67,13 +67,13 @@ subnets:
 
 dns_record:
   - name: vm1
-    ip: 192.168.42.101
-    public_url: http://193.40.156.67:10180
-    virtual_address: 192.168.100.101
+    ip: 	192.168.42.64
+    public_url: http://193.40.156.67:6480
+    virtual_address: 192.168.100.64
   - name: vm2
-    ip: 192.168.42.76
-    public_url: http://193.40.156.67:7680	
-    virtual_address: 192.168.100.76
+    ip: 192.168.42.53
+    public_url: http://193.40.156.67:5380
+    virtual_address: 192.168.100.53
   - name: backup
     ip: 192.168.42.132
 
@@ -84,7 +84,7 @@ startup_name: snackdrivein
 prometheus_port: 9090
 
 prometheus_exporters:
-  
+
   node:
     port: 9100
 

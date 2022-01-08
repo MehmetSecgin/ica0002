@@ -22,7 +22,11 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
   no_log: true
 
+- name: collect facts about system services
+  service_facts:
+
 - name: Sleep for 10 seconds and continue with play
   wait_for:
     timeout: 10
+  changed_when: ansible_facts.services['prometheus-mysqld-exporter'].state == "stopped"
   notify: Restart MySQL exporter

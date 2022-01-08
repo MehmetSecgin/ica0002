@@ -59,7 +59,7 @@
       - nginx_exporter
   
   - name: Bind and Mysql Exporters 
-    tags: exporters
+    tags: exportersmy
     hosts: db_servers
     become: yes
     roles:
@@ -80,6 +80,7 @@
       - influxdb
 
   - name: pinger
+    tags: pinger
     hosts: influxdb
     become: yes
     roles:

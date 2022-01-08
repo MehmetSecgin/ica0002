@@ -10,7 +10,7 @@ static_routes {
 vrrp_instance agama {             
     interface ens3
     virtual_router_id 1
-    {% if inventory_hostname == 'mesecg_vm1' %}
+    {% if inventory_hostname == dns_record[0].name %}
     priority 100
     {% else %}
     priority 99

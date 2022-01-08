@@ -30,16 +30,12 @@
   template:
     src: pinger.service
     dest: /etc/systemd/system/pinger.service
-
+  notify:
+    - Reload Daemon
+    - Restart pinger
 
 - name: Put the config file in place
   template:
     src: pinger.conf
     dest: /etc/pinger/pinger.conf
-  notify:
-    - Reload Daemon
-    - Restart Pinger
 
-# - name: Force systemd to reread configs 
-#   shell: systemctl daemon-reload
-#   notify: Restart pinger

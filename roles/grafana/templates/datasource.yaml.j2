@@ -21,7 +21,7 @@ datasources:
     # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
     access: Server
     # <string> url
-    url: http://vm1:8086
+    url: http://{{ dns_record[0].ip}}:8086
     # <string> database name
     database: latency
     # <bool> allow users to edit datasources from the UI.
@@ -33,7 +33,7 @@ datasources:
     # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
     access: Server
     # <string> url
-    url: http://vm1:8086
+    url: http://{{ dns_record[0].ip}}:8086
     # <string> database name
     database: telegraf
     # <bool> allow users to edit datasources from the UI.

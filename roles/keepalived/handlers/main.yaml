@@ -3,5 +3,13 @@
     name: keepalived
     state: restarted
 
-- name: Reload systemd
-  shell: systemctl daemon-reload
+- name : Restart exporter
+  service:
+    name: keepalived-prometheus-exporter.service
+    state: restarted
+
+- name: Reload Daemon
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: keepalived-prometheus-exporter.service

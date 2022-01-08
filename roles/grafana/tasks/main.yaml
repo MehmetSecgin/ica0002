@@ -16,7 +16,6 @@
     - /opt/grafana/provisioning/datasources
   notify: Restart grafana container
 
-
 - name: Put the ini file where it needs to be
   template:
     src: grafana.ini.j2
