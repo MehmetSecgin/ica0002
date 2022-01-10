@@ -90,12 +90,18 @@ prometheus_exporters:
 
   nginx:
     port: 9113
+
+  influxdb:
+    port: 9424
     
   haproxy:
     port: 9101
   
   keepalived:
     port: 9165
+
+  grafana:
+    port: 3001
 
 
 # DOCKER PORTS

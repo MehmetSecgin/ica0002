@@ -5,7 +5,3 @@ nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% for vm in groups['dns_masters'] %}
 nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor %}
-
-
-{# nameserver {{ mysql_host}}
-search {{ domain }} #}
