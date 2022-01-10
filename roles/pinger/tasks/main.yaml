@@ -39,3 +39,12 @@
     src: pinger.conf
     dest: /etc/pinger/pinger.conf
 
+- name: collect facts about system services
+  service_facts:
+
+- name: Sleep for 10 seconds and continue with play
+  wait_for:
+    timeout: 10
+  changed_when: ansible_facts.services['pinger.service'].state != "running"
+  notify: Restart pinger
+

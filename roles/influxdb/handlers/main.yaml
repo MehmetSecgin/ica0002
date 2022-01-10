@@ -1,9 +1,9 @@
 - name: Restart Influxdb
   service:
-    name:
-      - influxdb
+    name: influxdb
     state: restarted
     enabled: yes
+    ignore_errors: yes
 
 - name: Restart Telegraf
   service:

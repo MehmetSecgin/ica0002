@@ -1,5 +1,6 @@
 ---
   - name : Init
+    gather_facts: yes
     become: yes
     hosts: all
     roles:
@@ -24,15 +25,23 @@
   - name: Database Server
     hosts: db_servers
     become: yes
+    tags: db
     roles:
       - mysql
+
+  - name: DNS Server
+    hosts: dns_servers
+    tags: bind
+    gather_facts: no
+    become: yes
+    roles:
       - bind
-    tags:
-      - db
+      - bind_exporter
 
   - name: DNS Resolve
     hosts: all
     become: yes
+    tags: dr
     roles:
       - dns_resolve
   
@@ -63,12 +72,11 @@
     hosts: db_servers
     become: yes
     roles:
-      - bind_exporter
       - mysql_exporter
   
   - name: Install Grafana
     tags: grafana
-    hosts: docker
+    hosts: grafana
     become: yes
     roles:
       - grafana

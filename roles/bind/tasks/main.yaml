@@ -2,28 +2,90 @@
   apt: 
     name: 
       - bind9
-  notify: Restart Bind9
+      - python3-dnspython
+    state: latest
 
 - name : Change named.conf.options file 
   template:
     src: named.conf.options.j2
     dest: /etc/bind/named.conf.options
-  notify: Restart Bind9
+  no_log: true
+  notify: 
+    - Reload rndc
+    - Restart Bind9
+
+- name : Change db file 
+  template:
+    src: db.{{ startup_name }}.reverse.j2
+    dest: /var/cache/bind/db.reverse
+  when: inventory_hostname in groups['dns_masters']
+  notify: 
+    - Reload rndc
+    - Restart Bind9
 
 - name : Change db file 
   template:
     src: db.{{ startup_name }}.j2
     dest: /var/cache/bind/db.{{ startup_name }}
-  notify: Restart Bind9
+    force: no
+  when: inventory_hostname in groups['dns_masters']
+  notify: 
+    - Reload rndc
+    - Restart Bind9
+
 
 - name : Change named.conf.local file 
   template:
     src: named.conf.local.j2
     dest: /etc/bind/named.conf.local    
-  notify: Restart Bind9
+  notify: 
+      - Reload rndc
+      - Restart Bind9
 
-- name: Stop systemd-resolved
+# - name: Stop systemd-resolved
+#   service:
+#     name: systemd-resolved
+#     state: stopped
+#     enabled: no
+
+- name: Execute handlers preemptively
+  meta: flush_handlers
+
+- name: Sleep for 10 seconds and continue with play
+  wait_for:
+    timeout: 10
+    
+- name: Add A records
+  nsupdate:
+    key_algorithm: "hmac-sha256"
+    key_name: "{{dns_update_key_name}}"
+    key_secret: "{{ dns_update_key }}"
+    server: "{{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }}"
+    zone: "{{ domain }}."
+    record: "backup.{{ domain }}."
+    value: "{{ dns_record[2].ip }}"
+    type: "A"
+  when: inventory_hostname in groups['dns_masters']
+
+- name: Add CNAME records
+  nsupdate:
+    key_algorithm: "hmac-sha256"
+    key_name: "{{dns_update_key_name}}"
+    key_secret: "{{ dns_update_key }}"
+    server: "{{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }}"
+    zone: "{{ domain }}."
+    record: "{{ item['cname'] }}.{{ domain }}."
+    value: "{{ item['real'] }}.{{ domain }}."
+    type: "CNAME"
+  loop: "{{ cnames }}"
+  when: inventory_hostname in groups['dns_masters']
+
+- name: Execute handlers preemptively
+  meta: flush_handlers
+
+
+- name: Start bind
   service:
-    name: systemd-resolved
-    state: stopped
-    enabled: no
+    name: bind9
+    state: started
+    enabled: yes

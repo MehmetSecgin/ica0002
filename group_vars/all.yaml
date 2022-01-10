@@ -1,5 +1,5 @@
 # MYSQL CONFIG
-mysql_host: 192.168.42.53
+mysql_host: 192.168.42.124
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -9,7 +9,6 @@ mysql_password: !vault |
           34336335626531363539346661343664323863343037326335346537646436383331323366613037
           6162626339623833300a306637343766633632363630353331656264383766656136383065313262
           3334
-
 # MYSQL EXPORTER CONFIG
 mysql_exporter_user: exporter
 mysql_exporter_password: !vault |
@@ -19,7 +18,6 @@ mysql_exporter_password: !vault |
           31373230646631316130333565636335376532646132396466343133343533363538653735386234
           3665303838353230650a323662646532613132393935313037323032633263653132626161396466
           3937
-
 # MYSQL REPLICATION CONFIG
 mysql_replication_user: replication
 mysql_replication_password: !vault |
@@ -29,7 +27,6 @@ mysql_replication_password: !vault |
           30623831333132616430326466663031303361656362353964393662623064646532323063363666
           6566323731303962610a336166656639636235383831393666323566323930383531633766373939
           3434
-
 node_id: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'].split('.')[-1] }}"
 
 # GRAFANA CONFIG 
@@ -40,8 +37,6 @@ grafana_admin_password: !vault |
           38393932373832393839663037333239643834633964636465656633333634633162396135303131
           3431366238663162390a356663343063363863326634353432633931353532373330643664613533
           6463
-
-
 # BACKUP CONFIG
 backup_mysql_user: backup
 backup_mysql_password: !vault |
@@ -51,7 +46,6 @@ backup_mysql_password: !vault |
           62363731393861323331643939373934646433373731326231626134393833363065383230326263
           3031656464646466370a646339633862313534363939653863366366653639626334656436363465
           6330
-
 backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
 
 # DNS CONFIG
@@ -67,13 +61,13 @@ subnets:
 
 dns_record:
   - name: vm1
-    ip: 	192.168.42.64
-    public_url: http://193.40.156.67:6480
-    virtual_address: 192.168.100.64
+    ip: 	192.168.42.21
+    public_url: http://193.40.156.67:2180
+    virtual_address: 192.168.100.21
   - name: vm2
-    ip: 192.168.42.53
-    public_url: http://193.40.156.67:5380
-    virtual_address: 192.168.100.53
+    ip: 192.168.42.124
+    public_url: http://193.40.156.67:12480
+    virtual_address: 192.168.100.124
   - name: backup
     ip: 192.168.42.132
 
@@ -112,3 +106,53 @@ agama_port: 8001
 # Haproxy and Keepalived configs
 
 haproxy_port: 88
+
+# DNS Configs
+
+dns_transfer_key_name: transfer.key
+dns_transfer_key: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          64383037636135373461626636636562663539303762623333393062333630613763633331636330
+          3965663037616539336266636338323833396235313335330a373762393164343230633535396234
+          37356365346533663833626263313162633838313930333737646264653030333232313164393966
+          3933393663366438310a383565383235666263633638343464316539633265656662393737393866
+          33363537383436623234323765303365313637633465336236363233303163383661393235636461
+          6162646130333966303838383538633936623265626530333066
+
+dns_update_key_name: nsupdate.key
+dns_update_key: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35383862366337383762306339623863333566666436383932363766656261663431626532663262
+          6339346461323665326233306635383461656464636636390a393637383165393533663536633638
+          65653765373565326161616531656439393639346636666266646362616230366233316461376633
+          3339633662396637330a306435643166663661646230656637303365313534376164353738356238
+          63653237656333643535663537323962373130333061386331663732373434336238383034663065
+          6233303732663431333564666339663434343233326662626261
+
+reverse_mapping_vms_part: 42.168.192.in-addr.arpa
+
+cnames:
+  - cname: grafana
+    real: "{{ groups['grafana'][0] }}"
+  - cname: influxdb
+    real: "{{ groups['influxdb'][0] }}"
+  - cname: prometheus
+    real: "{{ groups['prometheus'][0] }}"
+  - cname: lb1
+    real: "{{ groups['haproxy'][0] }}"
+  - cname: lb2
+    real: "{{ groups['haproxy'][1] }}"
+  - cname: mysql1
+    real: "{{ groups['db_servers'][0] }}"
+  - cname: mysql2
+    real: "{{ groups['db_servers'][1] }}"
+  - cname: ns1
+    real: "{{ groups['dns_servers'][0] }}"
+  - cname: ns2
+    real: "{{ groups['dns_servers'][1] }}"
+  # - cname: ns3
+  #   real: "{{ groups['dns_servers'][2] }}"
+  - cname: web1
+    real: "{{ groups['web_servers'][0] }}"
+  - cname: web2
+    real: "{{ groups['web_servers'][1] }}"

@@ -1,4 +1,37 @@
 zone "{{ domain}}" {
-  type primary;
+  {% if inventory_hostname in groups['dns_masters'] %}
+    type master;
+    allow-transfer { key {{ dns_transfer_key_name }}; };
+    allow-update {127.0.0.1; key {{ dns_update_key_name }}; };
+  {% else %}
+    type slave;
+    masters {
+          {% for vm in groups['dns_masters'] %}
+      {{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+          {% endfor %} 
+      };
+  {% endif %}
   file "db.{{startup_name}}";
+};
+
+{% if inventory_hostname not in groups['dns_masters'] %}
+server {{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }} {
+     keys { transfer.key; };
+};
+{% endif %}
+
+zone "{{ reverse_mapping_vms_part }}" {
+{% if inventory_hostname in groups['dns_masters'] %}
+    type master;
+    allow-transfer { key {{ dns_transfer_key_name }}; };
+    allow-update {127.0.0.1; key {{ dns_update_key_name }}; };
+{% else %}
+    type slave;
+    masters {
+          {% for vm in groups['dns_masters'] %}
+      {{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+          {% endfor %} 
+      };
+{% endif %}
+    file "db.reverse"; 
 };
