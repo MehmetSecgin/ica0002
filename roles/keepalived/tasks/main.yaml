@@ -4,16 +4,23 @@
     name: keepalived
     state: latest
 
+- name: Add the user keepalived_script
+  user:
+    name: keepaliver
+    home: /home/keepaliver
+    shell: /bin/bash
+
 - name: Configure Keepalived 
   template:
     dest: /etc/keepalived/keepalived.conf
     src: keepalived.conf.j2
 
-- name: Place the script
+- name: Add the script
   template:
-    dest: /home/ubuntu/keepalive_script.sh
     src: keepalive_script.sh
-    mode: '0777'
+    dest: /home/keepaliver/keepalived_script.sh
+    owner: keepaliver
+    mode: 0100
   notify: Restart keepalived
 
 - name: Download and unarchive keepalived exporter

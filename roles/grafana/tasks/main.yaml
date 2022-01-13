@@ -1,10 +1,11 @@
     
 - name: Log into DockerHub
   docker_login:
-    username: scentryum
-    password: dockerpass
-    email: mehmetascgn@gmail.com
-    
+    username: "{{docker_user}}"
+    password: "{{docker_password}}"
+    email: "{{docker_email}}"
+  no_log: True
+
 - name: Install grafana on docker
   community.docker.docker_container:
     container_default_behavior: no_defaults

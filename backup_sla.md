@@ -10,16 +10,16 @@ Backup service covers only the next services:
 
 Recovery point objective for:
 
-- **MySQL** equals **28 days**.
-- **InfluxDB** equals **28 days**.
+- **MySQL** and **InfluxDB** equals **24 Hours** since system makes backups once a day.
 
 ## Versioning and retention
 
-- **MySQL** and **InfluxDB** backups are retained for **56 days**, only 2 versions can be stored at the same time.
+- **MySQL** and **InfluxDB** backups are retained for  **30 days**. Since we use incremental backuping every day we store a different version, 
+so 30 versions in total.
 
 ## Usability
 
-Usability of the last **MySQL**, **InfluxDB** and **Grafana**  backup is regularly checked every **1 weeks/7 days** before new modifications to Grafana configuration is done. The test is done on the virtual environment setup, simulating our real infrastructure.
+Usability of the last **MySQL** and **InfluxDB** backup is regularly checked every **1 weeks/7 days** before new modifications to Ansible repo is done. The test is done on the virtual environment setup, simulating our real infrastructure.
 
 ## Restoration criteria
 

@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -36,12 +36,14 @@
             {
               "options": {
                 "1": {
-                  "index": 1,
-                  "text": "MASTER"
-                },
-                "2": {
+                  "color": "red",
                   "index": 0,
                   "text": "SLAVE"
+                },
+                "2": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "MASTER"
                 }
               },
               "type": "value"
@@ -53,14 +55,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
               }
             ]
           },
@@ -278,6 +272,6 @@
   "timezone": "",
   "title": "HAProxy",
   "uid": "QYs1G_0nz",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }
