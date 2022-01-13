@@ -8,7 +8,6 @@
   template:
     src: 51-telegraf.conf
     dest: /etc/rsyslog.d/51-telegraf.conf
-    mode: '0777'
   notify: Restart Rsyslog
 
 - name: Start rsyslog

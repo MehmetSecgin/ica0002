@@ -3,7 +3,6 @@
     name: 
       - bind9
       - python3-dnspython
-    state: latest
 
 - name : Change named.conf.options file 
   template:
@@ -11,16 +10,6 @@
     dest: /etc/bind/named.conf.options
   no_log: true
   notify: 
-    - Reload rndc
-    - Restart Bind9
-
-- name : Change db file 
-  template:
-    src: db.{{ startup_name }}.reverse.j2
-    dest: /var/cache/bind/db.reverse
-  when: inventory_hostname in groups['dns_masters']
-  notify: 
-    - Reload rndc
     - Restart Bind9
 
 - name : Change db file 
@@ -31,22 +20,21 @@
   when: inventory_hostname in groups['dns_masters']
   notify: 
     - Reload rndc
-    - Restart Bind9
 
+- name : Change db reverse 
+  template:
+    src: db.{{ startup_name }}.reverse.j2
+    dest: /var/cache/bind/db.reverse
+  when: inventory_hostname in groups['dns_masters']
+  notify: 
+    - Reload rndc
 
 - name : Change named.conf.local file 
   template:
     src: named.conf.local.j2
     dest: /etc/bind/named.conf.local    
   notify: 
-      - Reload rndc
       - Restart Bind9
-
-# - name: Stop systemd-resolved
-#   service:
-#     name: systemd-resolved
-#     state: stopped
-#     enabled: no
 
 - name: Execute handlers preemptively
   meta: flush_handlers

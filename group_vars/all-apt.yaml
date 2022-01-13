@@ -1,6 +1,5 @@
 # MYSQL CONFIG
-# mysql_host: groups['db_servers'][0]
-mysql_host: 192.168.42.40
+mysql_host: 192.168.42.124
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -47,9 +46,7 @@ backup_mysql_password: !vault |
           62363731393861323331643939373934646433373731326231626134393833363065383230326263
           3031656464646466370a646339633862313534363939653863366366653639626334656436363465
           6330
-backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
-
-
+backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
 
 # DNS CONFIG
 dns_forwarders:
@@ -64,17 +61,13 @@ subnets:
 
 dns_record:
   - name: vm1
-    ip: 	192.168.42.123
-    public_url: http://193.40.156.67:12380
-    virtual_address: 192.168.100.123
+    ip: 	192.168.42.21
+    public_url: http://193.40.156.67:2180
+    virtual_address: 192.168.100.21
   - name: vm2
-    ip: 192.168.42.40
-    public_url: http://193.40.156.67:4080
-    virtual_address: 192.168.100.40
-  - name: vm3
-    ip: 192.168.42.47
-    public_url: http://193.40.156.67:4780
-    virtual_address: 192.168.100.47
+    ip: 192.168.42.124
+    public_url: http://193.40.156.67:12480
+    virtual_address: 192.168.100.124
 
   - name: backup
     ip: 192.168.42.132
@@ -112,20 +105,10 @@ prometheus_exporters:
     port: 3001
 
 
-# DOCKER CONFIG
+# DOCKER PORTS
 
 grafana_port: 3001
 agama_port: 8001
-
-docker_user: scentryum
-docker_email: mehmetascgn@gmail.com
-docker_password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          39616262326336386632656439386231333136303763346233666462386134363133346130373939
-          3135336539646134643661653764373436643765376634330a636330313164326362663530346633
-          65613232316133396562336636353262623566363833393936323332646636653938623436633461
-          6632306135353739310a396637353132656538653833373732323535663366656565383130356631
-          6138
 
 # Haproxy and Keepalived configs
 
@@ -174,15 +157,15 @@ cnames:
     real: "{{ groups['dns_servers'][0] }}"
   - cname: ns2
     real: "{{ groups['dns_servers'][1] }}"
-  - cname: ns3
-    real: "{{ groups['dns_servers'][2] }}"
+  # - cname: ns3
+  #   real: "{{ groups['dns_servers'][2] }}"
   - cname: web1
     real: "{{ groups['web_servers'][0] }}"
   - cname: web2
     real: "{{ groups['web_servers'][1] }}"
 
 services:
-  all:
+  ungrouped:
     - prometheus-node-exporter
     - prometheus-nginx-exporter
     - rsyslog

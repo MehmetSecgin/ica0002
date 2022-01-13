@@ -2,7 +2,6 @@
   service:
     name: mysql
     state: restarted
-  become: yes
 
 - name: Reset MySQL source
   community.mysql.mysql_replication:

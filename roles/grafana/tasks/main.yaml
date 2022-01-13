@@ -1,3 +1,10 @@
+    
+- name: Log into DockerHub
+  docker_login:
+    username: scentryum
+    password: dockerpass
+    email: mehmetascgn@gmail.com
+    
 - name: Install grafana on docker
   community.docker.docker_container:
     container_default_behavior: no_defaults
@@ -5,6 +12,7 @@
     image: grafana/grafana
     published_ports: "{{ grafana_port }}:3000"
     volumes: /opt/grafana:/etc/grafana
+    restart_policy: always
 
 - name: Create Grafana directories
   file:
@@ -20,6 +28,13 @@
   template:
     src: grafana.ini.j2
     dest: /opt/grafana/grafana.ini
+  no_log: true
+  notify: Restart grafana container
+
+- name: Put the datasource file
+  template:
+    src: datasource.yaml.j2
+    dest: /opt/grafana/provisioning/datasources/datasource.yaml
   notify: Restart grafana container
 
 - name: Put the yaml file
@@ -39,8 +54,3 @@
     - haproxy.json
   notify: Restart grafana container
 
-- name: Put the datasource file
-  template:
-    src: datasource.yaml.j2
-    dest: /opt/grafana/provisioning/datasources/datasource.yaml
-  notify: Restart grafana container

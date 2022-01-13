@@ -3,9 +3,26 @@
     gather_facts: yes
     become: yes
     hosts: all
+    tags: init
     roles:
       - init
       - backup
+
+  - name: DNS Server
+    hosts: dns_servers
+    tags: bind
+    gather_facts: no
+    become: yes
+    roles:
+      - bind
+      - bind_exporter
+
+  - name: DNS Resolve
+    hosts: all
+    become: yes
+    tags: dr
+    roles:
+      - dns_resolve
 
   - name: Docker
     hosts: docker
@@ -28,22 +45,6 @@
     tags: db
     roles:
       - mysql
-
-  - name: DNS Server
-    hosts: dns_servers
-    tags: bind
-    gather_facts: no
-    become: yes
-    roles:
-      - bind
-      - bind_exporter
-
-  - name: DNS Resolve
-    hosts: all
-    become: yes
-    tags: dr
-    roles:
-      - dns_resolve
   
   - name: Prometheus
     tags: prometheus
@@ -75,7 +76,7 @@
       - mysql_exporter
   
   - name: Install Grafana
-    tags: grafana
+    tags: g
     hosts: grafana
     become: yes
     roles:
@@ -83,16 +84,17 @@
   
   - name: Influxdb
     hosts: influxdb
+    tags: i
     become: yes
     roles: 
       - influxdb
 
-  - name: pinger
-    tags: pinger
-    hosts: influxdb
-    become: yes
-    roles:
-      - pinger
+  # - name: pinger
+  #   tags: pinger
+  #   hosts: influxdb
+  #   become: yes
+  #   roles:
+  #     - pinger
 
   - name: Rsyslog
     hosts: all
@@ -103,6 +105,7 @@
   - name: Influxdb Exporter
     hosts: influxdb
     become: yes
+    tags: iex
     roles:
       - influxdb_exporter
 
@@ -126,5 +129,11 @@
     roles:
       - haproxy
       - keepalived
-    
 
+  # - name: Troubleshoot
+  #   gather_facts: yes
+  #   tags: tr
+  #   hosts: all
+  #   become: yes
+  #   roles:
+  #     - troubleshoot

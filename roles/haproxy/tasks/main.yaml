@@ -5,20 +5,20 @@
 
 - name: Configure Haproxy 
   template:
-    dest: /etc/haproxy/haproxy.cfg
     src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
   notify: Restart haproxy 
-
-- name: Install HAProxy exporter
-  apt:
-    name: prometheus-haproxy-exporter
-    state: latest
 
 - name: Haproxy exporter config
   template:
     src: prometheus-haproxy-exporter.j2
     dest: /etc/default/prometheus-haproxy-exporter
   notify: Restart haproxy exporter
+
+- name: Install HAProxy exporter
+  apt:
+    name: prometheus-haproxy-exporter
+    state: latest
 
 - name: Sleep for 10 seconds and continue with play
   wait_for:
@@ -27,8 +27,14 @@
 - name: Start Haproxy and Exporters
   service: 
     name: "{{ item }}"
-    state: started    
+    state: started
+    enabled: yes
   loop: 
     - haproxy
     - prometheus-haproxy-exporter
 
+- name: Check if haproxy is working
+  shell: systemctl status prometheus-haproxy-exporter.service
+  register: exporter_stat
+  changed_when: '"error" in exporter_stat.stdout'
+  notify: Restart haproxy exporter

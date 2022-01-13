@@ -1,0 +1,1958 @@
+N 13 jaan  2022 15:29:48 EET
++ hostname
+mesecg
++ ansible-playbook infra.yaml --diff
+
+PLAY [Init] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [init : Update APT cache] *************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [init : hostname] *********************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [backup : Add the user backup] ********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [backup : Create restore directory] ***************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [backup : Install Duplicity] **********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [backup : Add known_hosts to automize ssh] ********************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+PLAY [DNS Server] **************************************************************
+
+TASK [bind : Install Bind9 Package] ********************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [bind : Change named.conf.options file] ***********************************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+TASK [bind : Change db file] ***************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Change db reverse] ************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Change named.conf.local file] *************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Sleep for 10 seconds and continue with play] **********************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [bind : Add A records] ****************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Add CNAME records] ************************************************
+skipping: [vm2] => (item={'cname': 'grafana', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'influxdb', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'prometheus', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'lb1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'grafana', 'real': 'vm1'}) 
+skipping: [vm3] => (item={'cname': 'influxdb', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'lb2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'prometheus', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'mysql1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'lb1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'mysql2', 'real': 'vm3'}) 
+skipping: [vm2] => (item={'cname': 'ns1', 'real': 'vm1'}) 
+skipping: [vm3] => (item={'cname': 'lb2', 'real': 'vm3'}) 
+skipping: [vm2] => (item={'cname': 'ns2', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'mysql1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'ns3', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'mysql2', 'real': 'vm3'}) 
+skipping: [vm2] => (item={'cname': 'web1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'web2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'ns1', 'real': 'vm1'}) 
+skipping: [vm3] => (item={'cname': 'ns2', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'ns3', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'web1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'web2', 'real': 'vm3'}) 
+ok: [vm1] => (item={'cname': 'grafana', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'influxdb', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'prometheus', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'lb1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'lb2', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'mysql1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'mysql2', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'ns1', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'ns2', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'ns3', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'web1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'web2', 'real': 'vm3'})
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Start bind] *******************************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [bind_exporter : Install Bind9 exporter] **********************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [DNS Resolve] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [dns_resolve : Change resolv file] ****************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [docker : Install Docker] *************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [docker : Configure Ip Tables] ********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [docker : Apply iptables rules] *******************************************
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [docker : Start Docker] ***************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+PLAY [Web Server] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Create Agama directory] ******************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [agama : Download agama install file to /opt/agama] ***********************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Log into DockerHub] **********************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [agama : Build the image] *************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Start agama container] *******************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [nginx : Install Nginx] ***************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [nginx : Change index] ****************************************************
+ok: [vm2]
+ok: [vm3]
+
+PLAY [Database Server] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : Install MySql and PyMySql] ***************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql : Copy the config file] ********************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : MySQL database] **************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : MySQL user] ******************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : MySQL replication user] ******************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql : Turn on dynamic config change] ***********************************
+skipping: [vm2]
+ok: [vm3]
+
+TASK [mysql : Keep static as it is] ********************************************
+skipping: [vm3]
+ok: [vm2]
+
+PLAY [Prometheus] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [prometheus : Install Prometheus] *****************************************
+ok: [vm1]
+
+TASK [prometheus : Change /etc/default/prometheus] *****************************
+ok: [vm1]
+
+TASK [prometheus : Configure Prometheus Job] ***********************************
+ok: [vm1]
+
+PLAY [Configure Reverse Proxy] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [reverse_proxy : Install Nginx] *******************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [reverse_proxy : Copy the config file] ************************************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+PLAY [Node and Nginx Exporters] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [node_exporter : Install Prometheus node exporters] ***********************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [node_exporter : Sleep for 10 seconds and continue with play] *************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [node_exporter : Enable and start node exporters] *************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [nginx_exporter : Download Nginx exporter] ********************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [nginx_exporter : Sleep for 10 seconds and continue with play] ************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+TASK [nginx_exporter : Restart Nginx exporter] *********************************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+PLAY [Bind and Mysql Exporters] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Install MySQL exporter] *********************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_exporter : Configure MySQL exporter] *******************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_exporter : Configure MySQL exporter] *******************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [vm2]
+ok: [vm3]
+
+PLAY [Install Grafana] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [grafana : Log into DockerHub] ********************************************
+ok: [vm1]
+
+TASK [grafana : Install grafana on docker] *************************************
+ok: [vm1]
+
+TASK [grafana : Create Grafana directories] ************************************
+ok: [vm1] => (item=/opt/grafana/provisioning/dashboards)
+ok: [vm1] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : Put the ini file where it needs to be] *************************
+ok: [vm1]
+
+TASK [grafana : Put the datasource file] ***************************************
+ok: [vm1]
+
+TASK [grafana : Put the yaml file] *********************************************
+ok: [vm1]
+
+TASK [grafana : Copy json files] ***********************************************
+ok: [vm1] => (item=main.json)
+ok: [vm1] => (item=mysql.json)
+ok: [vm1] => (item=syslog.json)
+ok: [vm1] => (item=haproxy.json)
+
+PLAY [Influxdb] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [influxdb : apt_key] ******************************************************
+ok: [vm1]
+
+TASK [influxdb : apt_repository] ***********************************************
+ok: [vm1]
+
+TASK [influxdb : apt] **********************************************************
+ok: [vm1]
+
+TASK [influxdb : Configure InfluxDb] *******************************************
+ok: [vm1]
+
+TASK [influxdb : Configure Telegraf] *******************************************
+ok: [vm1]
+
+TASK [influxdb : Start {{item}}] ***********************************************
+ok: [vm1] => (item=influxdb)
+ok: [vm1] => (item=telegraf)
+
+PLAY [Rsyslog] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [rsyslog : Install Rsyslog] ***********************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [rsyslog : Reconfigure rsyslog] *******************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [rsyslog : Start rsyslog] *************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+PLAY [Influxdb Exporter] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [influxdb_exporter : Download Influxdb Exporter] **************************
+ok: [vm1]
+
+TASK [influxdb_exporter : Create a service for influxdb exporter] **************
+ok: [vm1]
+
+TASK [influxdb_exporter : Start the service] ***********************************
+ok: [vm1]
+
+PLAY [MySQL Backup] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_backup : Create mysql directory for backup] ************************
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "mode": "0755",
+-    "owner": 0,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [vm2]
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "mode": "0755",
+-    "owner": 0,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [vm3]
+
+TASK [mysql_backup : Add MySQL user for backup] ********************************
+changed: [vm3]
+changed: [vm2]
+
+TASK [mysql_backup : Change .my.cnf file] **************************************
+changed: [vm3]
+changed: [vm2]
+
+TASK [mysql_backup : Add Cron when mysql server is changed] ********************
+skipping: [vm2]
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmpnkn36oal/mysql-backup.j2
+@@ -0,0 +1,4 @@
++30 1 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
++
++12 0 * * 0  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/
++12 0 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/
+
+changed: [vm3]
+
+TASK [mysql_backup : Delete Cron from Source Server] ***************************
+skipping: [vm3]
+ok: [vm2]
+
+PLAY [InfluxDb Backup] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [influxdb_backup : Create influxdb directory for backup] ******************
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "mode": "0755",
+-    "owner": 0,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/influxdb",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [vm3]
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "mode": "0755",
+-    "owner": 0,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/influxdb",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [vm2]
+
+TASK [influxdb_backup : Schedule InfluxDb Dumps] *******************************
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmpsn9_ti_x/influxdb-backup.j2
+@@ -0,0 +1,5 @@
++
++25 1 * * * backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
++
++30 1 * * * backup duplicity --no-encryption full /home/backup/influxdb/ rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/
++30 1 * * 1-6 backup duplicity --no-encryption incremental /home/backup/influxdb/ rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/
+
+changed: [vm3]
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmpl0sicyw6/influxdb-backup.j2
+@@ -0,0 +1,5 @@
++
++25 1 * * * backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
++
++30 1 * * * backup duplicity --no-encryption full /home/backup/influxdb/ rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/
++30 1 * * 1-6 backup duplicity --no-encryption incremental /home/backup/influxdb/ rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/
+
+changed: [vm2]
+
+PLAY [HAProxy Keepalived and exporters] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [haproxy : Install Haproxy] ***********************************************
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [vm2]
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [vm3]
+
+TASK [haproxy : Configure Haproxy] *********************************************
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmpilhh9lpz/haproxy.cfg.j2
+@@ -7,15 +7,6 @@
+ 	user haproxy
+ 	group haproxy
+ 	daemon
+-
+-	# Default SSL material locations
+-	ca-base /etc/ssl/certs
+-	crt-base /etc/ssl/private
+-
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+ 
+ defaults
+ 	log	global
+@@ -32,3 +23,13 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++listen agama
++    bind *:88
++	stats enable
++	stats uri /stats
++		server vm2_0 vm2:8001 check
++		server vm3_0 vm3:8001 check
++	
++
++
+
+changed: [vm2]
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmp0__sg0q0/haproxy.cfg.j2
+@@ -7,15 +7,6 @@
+ 	user haproxy
+ 	group haproxy
+ 	daemon
+-
+-	# Default SSL material locations
+-	ca-base /etc/ssl/certs
+-	crt-base /etc/ssl/private
+-
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+ 
+ defaults
+ 	log	global
+@@ -32,3 +23,13 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++listen agama
++    bind *:88
++	stats enable
++	stats uri /stats
++		server vm2_0 vm2:8001 check
++		server vm3_0 vm3:8001 check
++	
++
++
+
+changed: [vm3]
+
+TASK [haproxy : Haproxy exporter config] ***************************************
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmpm54hnc_k/prometheus-haproxy-exporter.j2
+@@ -0,0 +1 @@
++ARGS="--haproxy.scrape-uri="http://vm2:88/stats;csv"
+
+changed: [vm2]
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmp598lynsn/prometheus-haproxy-exporter.j2
+@@ -0,0 +1 @@
++ARGS="--haproxy.scrape-uri="http://vm3:88/stats;csv"
+
+changed: [vm3]
+
+TASK [haproxy : Install HAProxy exporter] **************************************
+The following NEW packages will be installed:
+  prometheus-haproxy-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [vm3]
+The following NEW packages will be installed:
+  prometheus-haproxy-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [vm2]
+
+TASK [haproxy : Sleep for 10 seconds and continue with play] *******************
+ok: [vm3]
+ok: [vm2]
+
+TASK [haproxy : Start Haproxy and Exporters] ***********************************
+ok: [vm3] => (item=haproxy)
+ok: [vm2] => (item=haproxy)
+ok: [vm2] => (item=prometheus-haproxy-exporter)
+ok: [vm3] => (item=prometheus-haproxy-exporter)
+
+TASK [haproxy : Check if haproxy is working] ***********************************
+changed: [vm2]
+changed: [vm3]
+
+TASK [keepalived : Install Keepalived] *****************************************
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 140 not upgraded.
+changed: [vm3]
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 140 not upgraded.
+changed: [vm2]
+
+TASK [keepalived : Configure Keepalived] ***************************************
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmp2o5f9ld7/keepalived.conf.j2
+@@ -0,0 +1,26 @@
++vrrp_script check_haproxy {                 
++    script "/home/ubuntu/keepalive_script.sh" 
++    weight 20                              
++    interval 1               
++}
++static_routes {
++    	192.168.100.0/24 dev ens3
++}
++
++vrrp_instance agama {             
++    interface ens3
++    virtual_router_id 1
++        priority 100
++        advert_int 1                            
++    virtual_ipaddress {                     
++        192.168.100.47/24
++    }
++    unicast_peer {                          
++            		    	    		        192.168.42.47
++    		    	
++    }
++    track_script {
++        check_haproxy
++    }
++
++}
+\ No newline at end of file
+
+changed: [vm2]
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmpe0pe2451/keepalived.conf.j2
+@@ -0,0 +1,26 @@
++vrrp_script check_haproxy {                 
++    script "/home/ubuntu/keepalive_script.sh" 
++    weight 20                              
++    interval 1               
++}
++static_routes {
++    	192.168.100.0/24 dev ens3
++}
++
++vrrp_instance agama {             
++    interface ens3
++    virtual_router_id 1
++        priority 99
++        advert_int 1                            
++    virtual_ipaddress {                     
++        192.168.100.47/24
++    }
++    unicast_peer {                          
++            		        192.168.42.40
++    		    	    		    	
++    }
++    track_script {
++        check_haproxy
++    }
++
++}
+\ No newline at end of file
+
+changed: [vm3]
+
+TASK [keepalived : Place the script] *******************************************
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmp0r9crlo4/keepalive_script.sh
+@@ -0,0 +1,2 @@
++#!/bin/bash
++ss -ntl | grep -q ':88 '
+\ No newline at end of file
+
+changed: [vm3]
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmpus0gfzv9/keepalive_script.sh
+@@ -0,0 +1,2 @@
++#!/bin/bash
++ss -ntl | grep -q ':88 '
+\ No newline at end of file
+
+changed: [vm2]
+
+TASK [keepalived : Download and unarchive keepalived exporter] *****************
+changed: [vm3]
+changed: [vm2]
+
+TASK [keepalived : Create keepalived exporter service] *************************
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmp4didapkt/keepalived-prometheus-exporter.service
+@@ -0,0 +1,15 @@
++[Unit]
++Description=Prometheus exporter for keepalived
++Documentation=https://github.com/cafebazaar/keepalived-exporter
++
++[Service]
++Restart=always
++User=root
++#EnvironmentFile=/etc/default/keepalived-exporter
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter $ARGS
++#ExecReload=/bin/kill -HUP $MAINPID
++#TimeoutStopSec=20s
++#SendSIGKILL=no
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [vm3]
+--- before
++++ after: /home/mesecg/.ansible/tmp/ansible-local-98544ypjo7hp1/tmp9vc7lm_a/keepalived-prometheus-exporter.service
+@@ -0,0 +1,15 @@
++[Unit]
++Description=Prometheus exporter for keepalived
++Documentation=https://github.com/cafebazaar/keepalived-exporter
++
++[Service]
++Restart=always
++User=root
++#EnvironmentFile=/etc/default/keepalived-exporter
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter $ARGS
++#ExecReload=/bin/kill -HUP $MAINPID
++#TimeoutStopSec=20s
++#SendSIGKILL=no
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [vm2]
+
+TASK [keepalived : Start Keepalived and Exporter] ******************************
+changed: [vm3] => (item=keepalived)
+changed: [vm2] => (item=keepalived)
+changed: [vm2] => (item=keepalived-prometheus-exporter)
+changed: [vm3] => (item=keepalived-prometheus-exporter)
+
+RUNNING HANDLER [haproxy : Restart haproxy] ************************************
+changed: [vm3]
+changed: [vm2]
+
+RUNNING HANDLER [haproxy : Restart haproxy exporter] ***************************
+changed: [vm2]
+changed: [vm3]
+
+RUNNING HANDLER [keepalived : Restart keepalived] ******************************
+changed: [vm3]
+changed: [vm2]
+
+RUNNING HANDLER [keepalived : Restart exporter] ********************************
+changed: [vm3]
+changed: [vm2]
+
+RUNNING HANDLER [keepalived : Reload Daemon] ***********************************
+changed: [vm3]
+changed: [vm2]
+
+PLAY RECAP *********************************************************************
+vm1                        : ok=61   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vm2                        : ok=81   changed=21   unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+vm3                        : ok=81   changed=22   unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+
++ ansible-playbook infra.yaml --diff
+
+PLAY [Init] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [init : Update APT cache] *************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [init : hostname] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [backup : Add the user backup] ********************************************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+TASK [backup : Create restore directory] ***************************************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+TASK [backup : Install Duplicity] **********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [backup : Add known_hosts to automize ssh] ********************************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+PLAY [DNS Server] **************************************************************
+
+TASK [bind : Install Bind9 Package] ********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [bind : Change named.conf.options file] ***********************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [bind : Change db file] ***************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Change db reverse] ************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Change named.conf.local file] *************************************
+ok: [vm3]
+ok: [vm1]
+ok: [vm2]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Sleep for 10 seconds and continue with play] **********************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+TASK [bind : Add A records] ****************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Add CNAME records] ************************************************
+skipping: [vm3] => (item={'cname': 'grafana', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'grafana', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'influxdb', 'real': 'vm1'}) 
+skipping: [vm3] => (item={'cname': 'influxdb', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'prometheus', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'lb1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'lb2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'prometheus', 'real': 'vm1'}) 
+skipping: [vm3] => (item={'cname': 'lb1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'lb2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'mysql1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'mysql1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'mysql2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'mysql2', 'real': 'vm3'}) 
+skipping: [vm2] => (item={'cname': 'ns1', 'real': 'vm1'}) 
+skipping: [vm3] => (item={'cname': 'ns1', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'ns2', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'ns2', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'ns3', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'ns3', 'real': 'vm3'}) 
+skipping: [vm2] => (item={'cname': 'web1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'web2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'web1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'web2', 'real': 'vm3'}) 
+ok: [vm1] => (item={'cname': 'grafana', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'influxdb', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'prometheus', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'lb1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'lb2', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'mysql1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'mysql2', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'ns1', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'ns2', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'ns3', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'web1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'web2', 'real': 'vm3'})
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Start bind] *******************************************************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+TASK [bind_exporter : Install Bind9 exporter] **********************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+PLAY [DNS Resolve] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [dns_resolve : Change resolv file] ****************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [docker : Install Docker] *************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [docker : Configure Ip Tables] ********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [docker : Apply iptables rules] *******************************************
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+TASK [docker : Start Docker] ***************************************************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+PLAY [Web Server] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [agama : Create Agama directory] ******************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [agama : Download agama install file to /opt/agama] ***********************
+ok: [vm3]
+ok: [vm2]
+
+TASK [agama : Log into DockerHub] **********************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [agama : Build the image] *************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Start agama container] *******************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [nginx : Install Nginx] ***************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [nginx : Change index] ****************************************************
+ok: [vm2]
+ok: [vm3]
+
+PLAY [Database Server] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : Install MySql and PyMySql] ***************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : Copy the config file] ********************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : MySQL database] **************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : MySQL user] ******************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql : MySQL replication user] ******************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : Turn on dynamic config change] ***********************************
+skipping: [vm2]
+ok: [vm3]
+
+TASK [mysql : Keep static as it is] ********************************************
+skipping: [vm3]
+ok: [vm2]
+
+PLAY [Prometheus] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [prometheus : Install Prometheus] *****************************************
+ok: [vm1]
+
+TASK [prometheus : Change /etc/default/prometheus] *****************************
+ok: [vm1]
+
+TASK [prometheus : Configure Prometheus Job] ***********************************
+ok: [vm1]
+
+PLAY [Configure Reverse Proxy] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [reverse_proxy : Install Nginx] *******************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [reverse_proxy : Copy the config file] ************************************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+PLAY [Node and Nginx Exporters] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [node_exporter : Install Prometheus node exporters] ***********************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [node_exporter : Sleep for 10 seconds and continue with play] *************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [node_exporter : Enable and start node exporters] *************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [nginx_exporter : Download Nginx exporter] ********************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [nginx_exporter : Sleep for 10 seconds and continue with play] ************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [nginx_exporter : Restart Nginx exporter] *********************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Bind and Mysql Exporters] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Install MySQL exporter] *********************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Configure MySQL exporter] *******************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Configure MySQL exporter] *******************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [vm3]
+ok: [vm2]
+
+PLAY [Install Grafana] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [grafana : Log into DockerHub] ********************************************
+ok: [vm1]
+
+TASK [grafana : Install grafana on docker] *************************************
+ok: [vm1]
+
+TASK [grafana : Create Grafana directories] ************************************
+ok: [vm1] => (item=/opt/grafana/provisioning/dashboards)
+ok: [vm1] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : Put the ini file where it needs to be] *************************
+ok: [vm1]
+
+TASK [grafana : Put the datasource file] ***************************************
+ok: [vm1]
+
+TASK [grafana : Put the yaml file] *********************************************
+ok: [vm1]
+
+TASK [grafana : Copy json files] ***********************************************
+ok: [vm1] => (item=main.json)
+ok: [vm1] => (item=mysql.json)
+ok: [vm1] => (item=syslog.json)
+ok: [vm1] => (item=haproxy.json)
+
+PLAY [Influxdb] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [influxdb : apt_key] ******************************************************
+ok: [vm1]
+
+TASK [influxdb : apt_repository] ***********************************************
+ok: [vm1]
+
+TASK [influxdb : apt] **********************************************************
+ok: [vm1]
+
+TASK [influxdb : Configure InfluxDb] *******************************************
+ok: [vm1]
+
+TASK [influxdb : Configure Telegraf] *******************************************
+ok: [vm1]
+
+TASK [influxdb : Start {{item}}] ***********************************************
+ok: [vm1] => (item=influxdb)
+ok: [vm1] => (item=telegraf)
+
+PLAY [Rsyslog] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [rsyslog : Install Rsyslog] ***********************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [rsyslog : Reconfigure rsyslog] *******************************************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+TASK [rsyslog : Start rsyslog] *************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Influxdb Exporter] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [influxdb_exporter : Download Influxdb Exporter] **************************
+ok: [vm1]
+
+TASK [influxdb_exporter : Create a service for influxdb exporter] **************
+ok: [vm1]
+
+TASK [influxdb_exporter : Start the service] ***********************************
+ok: [vm1]
+
+PLAY [MySQL Backup] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Create mysql directory for backup] ************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_backup : Add MySQL user for backup] ********************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Change .my.cnf file] **************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Add Cron when mysql server is changed] ********************
+skipping: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Delete Cron from Source Server] ***************************
+skipping: [vm3]
+ok: [vm2]
+
+PLAY [InfluxDb Backup] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [influxdb_backup : Create influxdb directory for backup] ******************
+ok: [vm3]
+ok: [vm2]
+
+TASK [influxdb_backup : Schedule InfluxDb Dumps] *******************************
+ok: [vm3]
+ok: [vm2]
+
+PLAY [HAProxy Keepalived and exporters] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Install Haproxy] ***********************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Configure Haproxy] *********************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [haproxy : Haproxy exporter config] ***************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [haproxy : Install HAProxy exporter] **************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Sleep for 10 seconds and continue with play] *******************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Start Haproxy and Exporters] ***********************************
+ok: [vm2] => (item=haproxy)
+ok: [vm3] => (item=haproxy)
+ok: [vm3] => (item=prometheus-haproxy-exporter)
+ok: [vm2] => (item=prometheus-haproxy-exporter)
+
+TASK [haproxy : Check if haproxy is working] ***********************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [keepalived : Install Keepalived] *****************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Configure Keepalived] ***************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [keepalived : Place the script] *******************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Download and unarchive keepalived exporter] *****************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Create keepalived exporter service] *************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Start Keepalived and Exporter] ******************************
+ok: [vm2] => (item=keepalived)
+ok: [vm3] => (item=keepalived)
+ok: [vm3] => (item=keepalived-prometheus-exporter)
+ok: [vm2] => (item=keepalived-prometheus-exporter)
+
+PLAY RECAP *********************************************************************
+vm1                        : ok=61   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vm2                        : ok=76   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+vm3                        : ok=76   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+
++ ansible all -b -m reboot -a test_command=uptime
+vm3 | CHANGED => {
+    "changed": true,
+    "elapsed": 37,
+    "rebooted": true
+}
+vm1 | CHANGED => {
+    "changed": true,
+    "elapsed": 37,
+    "rebooted": true
+}
+vm2 | CHANGED => {
+    "changed": true,
+    "elapsed": 42,
+    "rebooted": true
+}
++ ansible-playbook infra.yaml --diff
+
+PLAY [Init] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [init : Update APT cache] *************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [init : hostname] *********************************************************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+TASK [backup : Add the user backup] ********************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [backup : Create restore directory] ***************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [backup : Install Duplicity] **********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [backup : Add known_hosts to automize ssh] ********************************
+ok: [vm3]
+ok: [vm1]
+ok: [vm2]
+
+PLAY [DNS Server] **************************************************************
+
+TASK [bind : Install Bind9 Package] ********************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [bind : Change named.conf.options file] ***********************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [bind : Change db file] ***************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Change db reverse] ************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Change named.conf.local file] *************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Sleep for 10 seconds and continue with play] **********************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [bind : Add A records] ****************************************************
+skipping: [vm2]
+skipping: [vm3]
+ok: [vm1]
+
+TASK [bind : Add CNAME records] ************************************************
+skipping: [vm2] => (item={'cname': 'grafana', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'influxdb', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'prometheus', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'lb1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'grafana', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'lb2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'influxdb', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'mysql1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'prometheus', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'mysql2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'lb1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'ns1', 'real': 'vm1'}) 
+skipping: [vm3] => (item={'cname': 'lb2', 'real': 'vm3'}) 
+skipping: [vm2] => (item={'cname': 'ns2', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'mysql1', 'real': 'vm2'}) 
+skipping: [vm2] => (item={'cname': 'ns3', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'mysql2', 'real': 'vm3'}) 
+skipping: [vm2] => (item={'cname': 'web1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'ns1', 'real': 'vm1'}) 
+skipping: [vm2] => (item={'cname': 'web2', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'ns2', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'ns3', 'real': 'vm3'}) 
+skipping: [vm3] => (item={'cname': 'web1', 'real': 'vm2'}) 
+skipping: [vm3] => (item={'cname': 'web2', 'real': 'vm3'}) 
+ok: [vm1] => (item={'cname': 'grafana', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'influxdb', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'prometheus', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'lb1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'lb2', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'mysql1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'mysql2', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'ns1', 'real': 'vm1'})
+ok: [vm1] => (item={'cname': 'ns2', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'ns3', 'real': 'vm3'})
+ok: [vm1] => (item={'cname': 'web1', 'real': 'vm2'})
+ok: [vm1] => (item={'cname': 'web2', 'real': 'vm3'})
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Start bind] *******************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [bind_exporter : Install Bind9 exporter] **********************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+PLAY [DNS Resolve] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [dns_resolve : Change resolv file] ****************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+TASK [docker : Install Docker] *************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [docker : Configure Ip Tables] ********************************************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [docker : Apply iptables rules] *******************************************
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+ok: [vm3]
+ok: [vm1]
+ok: [vm2]
+
+TASK [docker : Start Docker] ***************************************************
+ok: [vm1]
+ok: [vm2]
+ok: [vm3]
+
+PLAY [Web Server] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Create Agama directory] ******************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Download agama install file to /opt/agama] ***********************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Log into DockerHub] **********************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [agama : Build the image] *************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [agama : Start agama container] *******************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [nginx : Install Nginx] ***************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [nginx : Change index] ****************************************************
+ok: [vm2]
+ok: [vm3]
+
+PLAY [Database Server] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : Install MySql and PyMySql] ***************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : Copy the config file] ********************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : MySQL database] **************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : MySQL user] ******************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql : MySQL replication user] ******************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql : Turn on dynamic config change] ***********************************
+skipping: [vm2]
+ok: [vm3]
+
+TASK [mysql : Keep static as it is] ********************************************
+skipping: [vm3]
+ok: [vm2]
+
+PLAY [Prometheus] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [prometheus : Install Prometheus] *****************************************
+ok: [vm1]
+
+TASK [prometheus : Change /etc/default/prometheus] *****************************
+ok: [vm1]
+
+TASK [prometheus : Configure Prometheus Job] ***********************************
+ok: [vm1]
+
+PLAY [Configure Reverse Proxy] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [reverse_proxy : Install Nginx] *******************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [reverse_proxy : Copy the config file] ************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Node and Nginx Exporters] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [node_exporter : Install Prometheus node exporters] ***********************
+ok: [vm3]
+ok: [vm2]
+ok: [vm1]
+
+TASK [node_exporter : Sleep for 10 seconds and continue with play] *************
+ok: [vm1]
+ok: [vm3]
+ok: [vm2]
+
+TASK [node_exporter : Enable and start node exporters] *************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [nginx_exporter : Download Nginx exporter] ********************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [nginx_exporter : Sleep for 10 seconds and continue with play] ************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [nginx_exporter : Restart Nginx exporter] *********************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Bind and Mysql Exporters] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Install MySQL exporter] *********************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_exporter : Configure MySQL exporter] *******************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Configure MySQL exporter] *******************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [vm3]
+ok: [vm2]
+
+PLAY [Install Grafana] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [grafana : Log into DockerHub] ********************************************
+ok: [vm1]
+
+TASK [grafana : Install grafana on docker] *************************************
+ok: [vm1]
+
+TASK [grafana : Create Grafana directories] ************************************
+ok: [vm1] => (item=/opt/grafana/provisioning/dashboards)
+ok: [vm1] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : Put the ini file where it needs to be] *************************
+ok: [vm1]
+
+TASK [grafana : Put the datasource file] ***************************************
+ok: [vm1]
+
+TASK [grafana : Put the yaml file] *********************************************
+ok: [vm1]
+
+TASK [grafana : Copy json files] ***********************************************
+ok: [vm1] => (item=main.json)
+ok: [vm1] => (item=mysql.json)
+ok: [vm1] => (item=syslog.json)
+ok: [vm1] => (item=haproxy.json)
+
+PLAY [Influxdb] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [influxdb : apt_key] ******************************************************
+ok: [vm1]
+
+TASK [influxdb : apt_repository] ***********************************************
+ok: [vm1]
+
+TASK [influxdb : apt] **********************************************************
+ok: [vm1]
+
+TASK [influxdb : Configure InfluxDb] *******************************************
+ok: [vm1]
+
+TASK [influxdb : Configure Telegraf] *******************************************
+ok: [vm1]
+
+TASK [influxdb : Start {{item}}] ***********************************************
+ok: [vm1] => (item=influxdb)
+ok: [vm1] => (item=telegraf)
+
+PLAY [Rsyslog] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm1]
+ok: [vm3]
+
+TASK [rsyslog : Install Rsyslog] ***********************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [rsyslog : Reconfigure rsyslog] *******************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+TASK [rsyslog : Start rsyslog] *************************************************
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+
+PLAY [Influxdb Exporter] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm1]
+
+TASK [influxdb_exporter : Download Influxdb Exporter] **************************
+ok: [vm1]
+
+TASK [influxdb_exporter : Create a service for influxdb exporter] **************
+ok: [vm1]
+
+TASK [influxdb_exporter : Start the service] ***********************************
+ok: [vm1]
+
+PLAY [MySQL Backup] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Create mysql directory for backup] ************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Add MySQL user for backup] ********************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Change .my.cnf file] **************************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [mysql_backup : Add Cron when mysql server is changed] ********************
+skipping: [vm2]
+ok: [vm3]
+
+TASK [mysql_backup : Delete Cron from Source Server] ***************************
+skipping: [vm3]
+ok: [vm2]
+
+PLAY [InfluxDb Backup] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [influxdb_backup : Create influxdb directory for backup] ******************
+ok: [vm2]
+ok: [vm3]
+
+TASK [influxdb_backup : Schedule InfluxDb Dumps] *******************************
+ok: [vm2]
+ok: [vm3]
+
+PLAY [HAProxy Keepalived and exporters] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Install Haproxy] ***********************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Configure Haproxy] *********************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Haproxy exporter config] ***************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Install HAProxy exporter] **************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Sleep for 10 seconds and continue with play] *******************
+ok: [vm2]
+ok: [vm3]
+
+TASK [haproxy : Start Haproxy and Exporters] ***********************************
+ok: [vm2] => (item=haproxy)
+ok: [vm3] => (item=haproxy)
+ok: [vm2] => (item=prometheus-haproxy-exporter)
+ok: [vm3] => (item=prometheus-haproxy-exporter)
+
+TASK [haproxy : Check if haproxy is working] ***********************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [keepalived : Install Keepalived] *****************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Configure Keepalived] ***************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Place the script] *******************************************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Download and unarchive keepalived exporter] *****************
+ok: [vm2]
+ok: [vm3]
+
+TASK [keepalived : Create keepalived exporter service] *************************
+ok: [vm3]
+ok: [vm2]
+
+TASK [keepalived : Start Keepalived and Exporter] ******************************
+ok: [vm2] => (item=keepalived)
+ok: [vm3] => (item=keepalived)
+ok: [vm3] => (item=keepalived-prometheus-exporter)
+ok: [vm2] => (item=keepalived-prometheus-exporter)
+
+PLAY RECAP *********************************************************************
+vm1                        : ok=61   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vm2                        : ok=76   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+vm3                        : ok=76   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+
++ date
+N 13 jaan  2022 15:39:28 EET

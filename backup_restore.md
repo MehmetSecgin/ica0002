@@ -7,9 +7,9 @@
 
 ### Restore MySQL data from the backup:
 
-    duplicity --no-encryption restore rsync://<backup_user>@<our_domain>//home/<backup_user> /home/backup/restore/
+    sudo -u backup duplicity --no-encryption restore rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/ /home/backup/restore/
 
-    mysql agama < /home/backup/restore/agama.sql
+    sudo -u backup mysql agama < /home/backup/restore/agama.sql
 
 ### Verify the restoration
 
@@ -23,9 +23,9 @@
 
 ### Restore InfluxDB data from the backup:
 
-    service telegraf stop
-    influx -execute 'DROP DATABASE telegraf'
-    influxd restore -portable -database telegraf /home/backup/influxdb
+    sudo service telegraf stop
+    sudo influx -execute 'DROP DATABASE telegraf'
+    sudo influxd restore -portable -database telegraf /home/backup/influxdb
 
 ### After you have verified that backup was restore successfully, run
 

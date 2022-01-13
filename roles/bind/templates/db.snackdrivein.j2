@@ -1,5 +1,5 @@
 $TTL	604800
-{{ domain }}.	IN	SOA	vm2.{{ domain }}. mesecg.{{ domain }}. (
+{{ domain }}.	IN	SOA	vm2.{{ domain }}. mesecg.{{ domain }} (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -7,8 +7,9 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 ;
 {% for vm in groups['dns_servers'] %}
-{{ domain }}.	IN	NS	{{ vm }}.{{ domain }}.
+{{ domain }}.	IN	NS	{{ vm }}
 {% endfor %}
+
 {%for d in dns_record%}
 {{d.name}} IN A {{d.ip}}
 {%endfor%}

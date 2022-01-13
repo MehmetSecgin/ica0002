@@ -10,6 +10,13 @@
     dest: /opt/agama/Dockerfile
     mode: 0755
 
+- name: Log into DockerHub
+  docker_login:
+    username: "{{docker_user}}"
+    password: "{{docker_password}}"
+    email: "{{docker_email}}"
+  no_log: True
+
 - name: Build the image
   community.docker.docker_image:
     build:
@@ -25,3 +32,4 @@
     env:
       "AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}"
     published_ports: "{{ agama_port }}:8000"
+    restart_policy: always

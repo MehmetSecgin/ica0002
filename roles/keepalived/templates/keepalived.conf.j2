@@ -10,14 +10,14 @@ static_routes {
 vrrp_instance agama {             
     interface ens3
     virtual_router_id 1
-    {% if inventory_hostname == dns_record[0].name %}
+    {% if inventory_hostname ==  groups['haproxy'][0] %}
     priority 100
     {% else %}
     priority 99
     {% endif %}
     advert_int 1                            
     virtual_ipaddress {                     
-        {{ dns_record[0].virtual_address}}/24                   
+        192.168.100.{{ (hostvars[groups['haproxy'][1]]['ansible_default_ipv4']['address'] | split('.'))[3] }}/24
     }
     unicast_peer {                          
         {% for vm in groups['haproxy']%}

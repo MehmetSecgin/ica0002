@@ -10,12 +10,11 @@
       - influxdb
       - telegraf
 
-- name: Start influxdb
-  service:
-    name: influxdb
-    state: started
-    enabled: yes 
-  ignore_errors: yes
+- name: Configure InfluxDb
+  template:
+    src: influxdb.conf
+    dest: /etc/influxdb/influxdb.conf
+  notify: Restart Influxdb
 
 - name: Configure Telegraf
   template:
@@ -23,11 +22,14 @@
     dest: /etc/telegraf/telegraf.conf
   notify: Restart Telegraf
 
-- name: Configure InfluxDb
-  template:
-    src: influxdb.conf
-    dest: /etc/influxdb/influxdb.conf
-  notify: Restart Influxdb
-
+- name: Start {{item}}
+  service:
+    name: "{{item}}"
+    state: started
+    enabled: yes 
+  ignore_errors: yes
+  loop:
+    - influxdb
+    - telegraf
 
     

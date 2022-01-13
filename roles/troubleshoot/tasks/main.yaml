@@ -1,0 +1,64 @@
+
+- name: Ensure common services between all machines are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['all']
+  with_list: "{{ services.all }}"
+
+- name: Ensure Docker services are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['docker']
+  with_list: "{{ services.docker }}"
+
+- name: Ensure web_server services are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['web_servers']
+  with_list: "{{ services.web_servers }}"
+
+- name: Ensure db_servers services are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['db_servers']
+  with_list: "{{ services.db_servers }}"
+
+- name: Ensure dns_servers services are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['dns_servers']
+  with_list: "{{ services.dns_servers }}"
+
+- name: Ensure prometheus services are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['prometheus']
+  with_list: "{{ services.prometheus }}"
+
+- name: Ensure influxdb services are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['influxdb']
+  with_list: "{{ services.influxdb }}"
+
+- name: Ensure haproxy services are running
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['haproxy']
+  with_list: "{{ services.haproxy }}"

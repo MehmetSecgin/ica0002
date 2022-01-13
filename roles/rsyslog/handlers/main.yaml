@@ -2,4 +2,3 @@
   service:
     name: rsyslog
     state: restarted
-  become: yes

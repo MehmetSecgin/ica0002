@@ -19,7 +19,8 @@
     dest: /home/backup/.my.cnf
     owner: backup
     mode: 0400
-
+  no_log: true
+  
 - name: Add Cron when mysql server is changed
   template:
     src: mysql-backup.j2

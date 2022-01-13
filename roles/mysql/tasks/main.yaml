@@ -4,7 +4,6 @@
     name: 
       - mysql-server
       - python3-pymysql
-    state: latest
   
 - name : Copy the config file
   template:

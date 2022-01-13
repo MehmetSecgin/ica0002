@@ -9,31 +9,31 @@ datasources:
     # <string, required> datasource type. Required
     type: prometheus
     # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
-    access: Server
+    access: proxy
     # <string> url
-    url: {{ dns_record[0].public_url}}/prometheus
+    url: http://{{groups['prometheus'][0]}}:{{prometheus_port}}/prometheus
     # <bool> allow users to edit datasources from the UI.
     editable: true
 
-  - name: Influxdb-latency
+  {# - name: Influxdb-latency
     # <string, required> datasource type. Required
     type: influxdb
     # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
-    access: Server
+    access: proxy
     # <string> url
-    url: http://influxdb:8086
+    url: http://{{groups['influxdb'][0]}}:8086
     # <string> database name
     database: latency
     # <bool> allow users to edit datasources from the UI.
-    editable: true
+    editable: true #}
 
   - name: Influxdb-telegraf
     # <string, required> datasource type. Required
     type: influxdb
     # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
-    access: Server
+    access: proxy
     # <string> url
-    url: http://influxdb:8086
+    url: http://{{groups['influxdb'][0]}}:8086
     # <string> database name
     database: telegraf
     # <bool> allow users to edit datasources from the UI.

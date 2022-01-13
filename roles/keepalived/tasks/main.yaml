@@ -32,9 +32,10 @@
     - Restart keepalived
 
 - name: Start Keepalived and Exporter
-  service: 
-    name: "{{ item }}"
-    state: started    
+  systemd:
+    name: "{{item}}"
+    state: started
+    enabled: yes  
   loop: 
     - keepalived
     - keepalived-prometheus-exporter

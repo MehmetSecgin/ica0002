@@ -1,5 +1,5 @@
 [Unit]
-Description= pinger service for influxdb exporter
+Description= Influxdb Exporter Service
 After=network.target
 
 [Service]
