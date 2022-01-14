@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -112,10 +112,12 @@
             {
               "options": {
                 "0": {
+                  "color": "red",
                   "index": 1,
                   "text": "DOWN"
                 },
                 "1": {
+                  "color": "green",
                   "index": 0,
                   "text": "UP"
                 }
@@ -129,10 +131,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },

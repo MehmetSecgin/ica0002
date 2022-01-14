@@ -25,12 +25,12 @@ defaults
 	errorfile 504 /etc/haproxy/errors/504.http
 
 listen agama
-    bind *:{{ haproxy_port }}
+    bind :{{ haproxy_port }}
 	stats enable
 	stats uri /stats
 {% for vm in groups['haproxy'] %}
-{% for i in range(agama_container_per_vm) %}
-	server {{ vm }}_{{ i }} {{ vm }}:{{ agama_port }} check
+{% for i in range(1,agama_container_per_vm+1) %}
+	server {{ vm }}_{{ i }} {{ vm }}:{{ agama_port + i}} check
 {% endfor %} 
 {% endfor %}
 

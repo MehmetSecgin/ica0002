@@ -1,6 +1,6 @@
 # MYSQL CONFIG
-# mysql_host: groups['db_servers'][0]
-mysql_host: 192.168.42.40
+mysql_host: "{{hostvars[groups['db_master'][0]]['ansible_default_ipv4']['address']}}"
+# mysql_host: 192.168.42.40
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -63,18 +63,18 @@ subnets:
   - 127.0.0.0/8
 
 dns_record:
-  - name: vm1
-    ip: 	192.168.42.123
-    public_url: http://193.40.156.67:12380 
-    virtual_address: 192.168.100.123
-  - name: vm2
-    ip: 192.168.42.40
-    public_url: http://193.40.156.67:4080
-    virtual_address: 192.168.100.40
-  - name: vm3
-    ip: 192.168.42.47
-    public_url: http://193.40.156.67:4780
-    virtual_address: 192.168.100.47
+  - name: "{{groups['all_servers'][0]}}"
+    ip: 	"192.168.42.{{(hostvars[groups['all_servers'][0]].ansible_port | string)[:-2] }}"
+    public_url: "http://193.40.156.67:{{(hostvars[groups['all_servers'][0]].ansible_port | string)[:-2] }}80"
+    virtual_address: "192.168.100.{{(hostvars[groups['all_servers'][0]].ansible_port | string)[:-2] }}"
+  - name: "{{groups['all_servers'][1]}}"
+    ip: 	"192.168.42.{{(hostvars[groups['all_servers'][1]].ansible_port | string)[:-2] }}"
+    public_url: "http://193.40.156.67:{{(hostvars[groups['all_servers'][1]].ansible_port | string)[:-2] }}80"
+    virtual_address: "192.168.100.{{(hostvars[groups['all_servers'][1]].ansible_port | string)[:-2] }}"
+  - name: "{{groups['all_servers'][2]}}"
+    ip: 	"192.168.42.{{(hostvars[groups['all_servers'][2]].ansible_port | string)[:-2] }}"
+    public_url: "http://193.40.156.67:{{(hostvars[groups['all_servers'][2]].ansible_port | string)[:-2] }}80"
+    virtual_address: "192.168.100.{{(hostvars[groups['all_servers'][2]].ansible_port | string)[:-2] }}"
 
   - name: backup
     ip: 192.168.42.132

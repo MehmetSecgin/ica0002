@@ -1,2 +1,7 @@
-- name: Ansible ping module
-    ping:
+---
+  - name: collect facts about system services
+    service_facts:
+
+  - name: test
+    debug:
+        msg: "{{ansible_facts.services['prometheus-mysqld-exporter']}}"

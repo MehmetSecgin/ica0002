@@ -9,7 +9,7 @@ server {
 
 
 	location / {
-		proxy_pass http://localhost:{{ agama_port }};
+		proxy_pass http://localhost:{{ agama_port + 1 }};
 
 	}
 	location /stub_status {

@@ -4,7 +4,7 @@
     name: keepalived
     state: latest
 
-- name: Add the user keepalived_script
+- name: Add the user keepaliver
   user:
     name: keepaliver
     home: /home/keepaliver
@@ -18,9 +18,9 @@
 - name: Add the script
   template:
     src: keepalive_script.sh
-    dest: /home/keepaliver/keepalived_script.sh
+    dest: /home/keepaliver/keepalived_script
     owner: keepaliver
-    mode: 0100
+    mode: '0777'
   notify: Restart keepalived
 
 - name: Download and unarchive keepalived exporter

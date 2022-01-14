@@ -6,7 +6,9 @@
     tags: init
     roles:
       - init
-      - backup
+      - node_exporter
+      - rsyslog
+      - reverse_proxy
 
   - name: DNS Server
     hosts: dns_servers
@@ -24,20 +26,23 @@
     roles:
       - dns_resolve
 
-  - name: Docker
-    hosts: docker
-    tags: docker
+  - name: Web Server
+    hosts: web_servers
+    tags: w
     become: yes
     roles:
       - docker
-
-  - name: Web Server
-    hosts: web_servers
-    tags: webserver
-    become: yes
-    roles:
       - agama
       - nginx
+      - haproxy
+      - keepalived
+
+  - name: Prometheus
+    tags: p
+    become: yes 
+    hosts: prometheus
+    roles:
+      - prometheus
 
   - name: Database Server
     hosts: db_servers
@@ -45,49 +50,34 @@
     tags: db
     roles:
       - mysql
-  
-  - name: Prometheus
-    tags: prometheus
-    become: yes 
-    hosts: prometheus
-    roles:
-      - prometheus
-
-  - name: Configure Reverse Proxy
-    tags: rproxy
-    become: yes
-    hosts: all
-    roles:
-      - reverse_proxy
+      - mysql_exporter
+      - mysql_backup
+      - backup  
 
   - name: Node and Nginx Exporters
     tags: exporters
     hosts: all
     become: yes
     roles:
-      - node_exporter
+      - nginx
       - nginx_exporter
-  
-  - name: Bind and Mysql Exporters 
-    tags: exportersmy
-    hosts: db_servers
-    become: yes
-    roles:
-      - mysql_exporter
   
   - name: Install Grafana
     tags: g
     hosts: grafana
     become: yes
     roles:
+      - docker
       - grafana
-  
+
   - name: Influxdb
     hosts: influxdb
     tags: i
     become: yes
     roles: 
       - influxdb
+      - influxdb_backup
+      - influxdb_exporter
 
   # - name: pinger
   #   tags: pinger
@@ -96,44 +86,19 @@
   #   roles:
   #     - pinger
 
-  - name: Rsyslog
-    hosts: all
-    become: yes
-    roles:
-      - rsyslog
-  
-  - name: Influxdb Exporter
-    hosts: influxdb
-    become: yes
-    tags: iex
-    roles:
-      - influxdb_exporter
-
-  - name: MySQL Backup
-    tags: backup
-    hosts: db_servers
-    become: yes
-    roles:
-      - mysql_backup
-
-  - name: InfluxDb Backup
-    hosts: db_servers
-    become: yes
-    roles:
-      - influxdb_backup
-
-  - name: HAProxy Keepalived and exporters
-    tags: haproxy
-    hosts: haproxy
-    become: yes
-    roles:
-      - haproxy
-      - keepalived
+#   # - name: Troubleshoot
+#   #   gather_facts: yes
+#   #   tags: tr
+#   #   hosts: all
+#   #   become: yes
+#   #   roles:
+#   #     - troubleshoot
 
   # - name: Troubleshoot
   #   gather_facts: yes
   #   tags: tr
-  #   hosts: all
+  #   hosts: db_servers
   #   become: yes
   #   roles:
-  #     - troubleshoot
+  #     - test_connection
+

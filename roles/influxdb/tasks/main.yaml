@@ -22,7 +22,7 @@
     dest: /etc/telegraf/telegraf.conf
   notify: Restart Telegraf
 
-- name: Start {{item}}
+- name: Start "{{item}}"
   service:
     name: "{{item}}"
     state: started
