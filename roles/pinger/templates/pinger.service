@@ -1,12 +1,10 @@
 [Unit]
 Description= pinger service for influxdb
-After=network.target
+After=network-online.target
 
 [Service]
-Restart=always
-RestartSec=1
 User=pinger
-ExecStart= /usr/local/bin/pinger/pinger.sh $ARGS
+ExecStart=/usr/local/bin/pinger
 
 [Install]
 WantedBy=multi-user.target

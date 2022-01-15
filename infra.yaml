@@ -70,6 +70,13 @@
       - docker
       - grafana
 
+  - name: pinger
+    tags: pinger
+    hosts: influxdb
+    become: yes
+    roles:
+      - pinger
+
   - name: Influxdb
     hosts: influxdb
     tags: i
@@ -79,12 +86,6 @@
       - influxdb_backup
       - influxdb_exporter
 
-  # - name: pinger
-  #   tags: pinger
-  #   hosts: influxdb
-  #   become: yes
-  #   roles:
-  #     - pinger
 
 #   # - name: Troubleshoot
 #   #   gather_facts: yes

@@ -1,30 +1,27 @@
-- name: Add user "pinger"
-  user:
-    name: pinger
-
 - name: Install Fping
   apt:
     name: fping
     state: latest
 
-- name: Create install directory
-  file:
-    path: /etc/pinger
-    state: directory
-    mode: '0755'
+- name: Add the user "pinger"
+  user:
+    name: pinger
+    home: /etc/pinger
+    shell: /bin/bash
+  notify: Restart pinger
 
-- name: Create install directory
-  file:
-    state: directory
-    path: /usr/local/bin/pinger
-    owner: pinger
-    mode: '0755'
+- name: Put the config file in place
+  template:
+    src: pinger.conf
+    dest: /etc/pinger/pinger.conf
+  notify: Restart pinger
 
 - name: Place the .sh file where it needs to be
   template:
     src: pinger.sh
-    dest: /usr/local/bin/pinger/pinger.sh
+    dest: /usr/local/bin/pinger
     mode: '0777'
+  notify: Restart pinger
 
 - name: Create a service called pinger
   template:
@@ -34,17 +31,8 @@
     - Reload Daemon
     - Restart pinger
 
-- name: Put the config file in place
-  template:
-    src: pinger.conf
-    dest: /etc/pinger/pinger.conf
-
-- name: collect facts about system services
-  service_facts:
-
-- name: Sleep for 10 seconds and continue with play
-  wait_for:
-    timeout: 10
-  changed_when: ansible_facts.services['pinger.service'].state != "running"
-  notify: Restart pinger
-
+- name: Start pinger
+  service:
+    name: pinger
+    state: started
+    enabled: yes

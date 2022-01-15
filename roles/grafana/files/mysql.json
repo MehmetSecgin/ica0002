@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 3,
-  "iteration": 1641829834009,
+  "iteration": 1642187470019,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -98,7 +98,23 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "WRITE/READ"
+                },
+                "1": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "READ ONLY"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -123,9 +139,9 @@
       },
       "id": 2,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -162,7 +178,35 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [
             {
@@ -200,7 +244,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "sql_running on vm2:9104"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -210,19 +279,14 @@
       },
       "id": 4,
       "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
         },
-        "text": {},
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "pluginVersion": "8.3.3",
       "targets": [
@@ -251,7 +315,7 @@
         }
       ],
       "title": "MySQL replication",
-      "type": "stat"
+      "type": "timeseries"
     }
   ],
   "refresh": "",
@@ -263,8 +327,8 @@
       {
         "current": {
           "selected": false,
-          "text": "mysql_global_variables_server_id{instance=\"vm1:9104\",job=\"mysqld\"}",
-          "value": "mysql_global_variables_server_id{instance=\"vm1:9104\",job=\"mysqld\"}"
+          "text": "mysql_global_variables_server_id{instance=\"vm2:9104\",job=\"mysqld\"}",
+          "value": "mysql_global_variables_server_id{instance=\"vm2:9104\",job=\"mysqld\"}"
         },
         "datasource": {
           "type": "prometheus",
@@ -296,6 +360,6 @@
   "timezone": "",
   "title": "MySql Server",
   "uid": "QqDJV-2nz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
