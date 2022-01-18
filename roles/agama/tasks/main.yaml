@@ -36,3 +36,4 @@
   loop:
     - 1
     - 2
+  no_log: true

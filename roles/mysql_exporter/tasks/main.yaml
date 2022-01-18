@@ -5,12 +5,14 @@
     src: prometheus-mysqld-exporter.j2
     dest: /etc/default/prometheus-mysqld-exporter
   no_log: true
+  notify: Restart MySQL exporter
 
 - name: Configure MySQL exporter
   template:
     src: my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
   no_log: true
+  notify: Restart MySQL exporter
 
 - name: Install MySQL exporter
   apt:
@@ -24,6 +26,7 @@
     priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
     login_unix_socket: /var/run/mysqld/mysqld.sock
   no_log: true
+  notify: Restart MySQL exporter
 
 - name: collect facts about system services
   service_facts:

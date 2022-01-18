@@ -16,10 +16,10 @@ db_master
 db_slaves
 
 [db_master]
-vm2
+vm3
 
 [db_slaves]
-vm3
+vm2
 
 [prometheus]
 vm1

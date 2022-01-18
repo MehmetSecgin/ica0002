@@ -27,8 +27,6 @@
 ### Restore InfluxDB data from the backup:
 
     sudo -u backup duplicity --no-encryption --force restore rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/influxdb/ /home/backup/restore/
-
-
     sudo service telegraf stop
     sudo influx -execute 'DROP DATABASE telegraf'
     sudo influxd restore -portable -database telegraf /home/backup/influxdb

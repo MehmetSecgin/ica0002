@@ -15,7 +15,7 @@
   - name: DNS Server
     hosts: dns_servers
     tags: bind
-    gather_facts: no
+    gather_facts: yes
     become: yes
     roles:
       - bind
