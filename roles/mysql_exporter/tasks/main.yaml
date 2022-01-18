@@ -10,6 +10,7 @@
   template:
     src: my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
+  no_log: true
 
 - name: Install MySQL exporter
   apt:
