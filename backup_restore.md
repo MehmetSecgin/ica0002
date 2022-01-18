@@ -7,13 +7,16 @@
 
 ### Restore MySQL data from the backup:
 
-    sudo -u backup duplicity --no-encryption restore rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/ /home/backup/restore/
 
-    sudo -u backup mysql agama < /home/backup/restore/agama.sql
+    sudo -u backup duplicity --no-encryption --force restore rsync://Scentryum@backup.snackdrivein.io//home/Scentryum/ /home/backup/restore/
+
+    sudo -i
+
+    mysql agama < /home/backup/restore/agama.sql
 
 ### Verify the restoration
 
-    mysql -e 'SELECT * FROM agama.item'
+    sudo mysql -e 'SELECT * FROM agama.item'
 
 ## InfluxDB
 

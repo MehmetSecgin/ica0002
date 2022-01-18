@@ -15,7 +15,8 @@
     path: /etc/iptables/rules.v4
     state: restored
     table: mangle 
-
+  async: "{{ ansible_timeout }}"
+  poll: 0
 
 
 - name: Start Docker

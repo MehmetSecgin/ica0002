@@ -9,6 +9,8 @@
       - node_exporter
       - rsyslog
       - reverse_proxy
+      - backup  
+
 
   - name: DNS Server
     hosts: dns_servers
@@ -52,7 +54,6 @@
       - mysql
       - mysql_exporter
       - mysql_backup
-      - backup  
 
   - name: Node and Nginx Exporters
     tags: exporters
@@ -70,13 +71,6 @@
       - docker
       - grafana
 
-  - name: pinger
-    tags: pinger
-    hosts: influxdb
-    become: yes
-    roles:
-      - pinger
-
   - name: Influxdb
     hosts: influxdb
     tags: i
@@ -85,6 +79,8 @@
       - influxdb
       - influxdb_backup
       - influxdb_exporter
+      - pinger
+
 
 
 #   # - name: Troubleshoot

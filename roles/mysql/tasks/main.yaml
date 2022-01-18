@@ -23,6 +23,7 @@
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: yes
 
 - name: MySQL replication user
   community.mysql.mysql_user:
@@ -32,6 +33,7 @@
     priv: '*.*:REPLICATION SLAVE'
     login_unix_socket: /var/run/mysqld/mysqld.sock
   notify: Restart Mysql
+  no_log: yes
 
 
 - name: Turn on dynamic config change
